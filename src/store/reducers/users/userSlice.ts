@@ -2,7 +2,12 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { handleReduxError } from "../../../utils/errorHandling";
 
 import { User, UserState } from "./userInterfaces";
-import { getUser, updateUserAsync } from "../../../services/userAPI";
+import {
+  authenticateUser,
+  getUser,
+  updateUserAsync,
+  deleteUserAsync
+} from "../../../services/userAPI";
 
 const initialState: UserState = {
   data: null,
@@ -10,6 +15,21 @@ const initialState: UserState = {
   error: null,
   deleted: false,
 };
+
+export const loginUser = createAsyncThunk(
+  "user/loginUser",
+  async (
+    credentials: { email: string; password: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      const data: User = await authenticateUser(credentials);
+      return data;
+    } catch (error) {
+      return rejectWithValue(handleReduxError(error));
+    }
+  }
+);
 
 // get the user from the API
 export const fetchUser = createAsyncThunk(
@@ -45,7 +65,7 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (_, { rejectWithValue }) => {
     try {
-      await deleteUser();
+      await deleteUserAsync();
       return null;
     } catch (error) {
       return rejectWithValue(handleReduxError(error));
@@ -53,13 +73,25 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
-
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(loginUser.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(loginUser.fulfilled, (state, action: PayloadAction<User>) => {
+        state.status = "succeeded";
+        state.data = action.payload;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload
+          ? handleReduxError(action.payload)
+          : "Unknown error occurred";
+      })
       .addCase(fetchUser.pending, (state) => {
         state.status = "loading";
       })
@@ -92,7 +124,7 @@ export const userSlice = createSlice({
       .addCase(deleteUser.fulfilled, (state) => {
         state.status = "succeeded";
         state.data = null;
-        state.deleted = true; // This indicates the deletion was successful
+        state.deleted = true;
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.status = "failed";
