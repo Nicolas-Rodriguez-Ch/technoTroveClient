@@ -1,4 +1,6 @@
 import React from "react";
+import { Provider } from "react-redux";
+import store from "./store/store";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -22,9 +24,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <main className="App">
-      <RouterProvider router={router} />
-    </main>
+    <Provider store={store}>
+      <main className="App">
+        <RouterProvider router={router} />
+      </main>
+    </Provider>
   );
 }
 
