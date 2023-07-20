@@ -1,34 +1,20 @@
-import React from "react";
-import { Provider } from "react-redux";
-import store from "./store/store";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Outlet,
-  Route,
-  Link,
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import NotFound from "./pages/NotFound/NotFound";
-
-const router = createBrowserRouter([
-  {
-    path: "*",
-    element: <NotFound />,
-  },
-  {
-    path: "/",
-    element: <Home />,
-  },
-]);
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
+import routePaths from "./constants/routePaths";
 
 function App() {
   return (
-    <Provider store={store}>
-      <main className="App">
-        <RouterProvider router={router} />
-      </main>
-    </Provider>
+    <main className="App">
+      <Header />
+      <Routes>
+        <Route path={routePaths.notFound} element={<NotFound />} />
+        <Route path={routePaths.home} element={<Home />} />
+      </Routes>
+      <Footer />
+    </main>
   );
 }
 
