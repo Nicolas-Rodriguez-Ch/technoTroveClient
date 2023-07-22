@@ -5,6 +5,7 @@ const texts = {
   loginError: "This field is required",
   password: "Password",
   submit: "Submit"
+  
 }
 
 export default texts
