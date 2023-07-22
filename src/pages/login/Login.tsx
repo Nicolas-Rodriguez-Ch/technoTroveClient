@@ -5,7 +5,7 @@ import { loginUser } from "../../store/reducers/users/userSlice";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import texts from "../../utils/texts";
-import { token } from "../../constants/cookies";
+import { token as tknCookie } from "../../constants/cookies";
 import { ToastContainer, toast } from "react-toastify";
 import Cookies from "js-cookie";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,7 +19,7 @@ interface Credentials {
 const Login = () => {
   const dispatch: AppDispatch = useDispatch();
   const { data, status, error } = useSelector((state: RootState) => state.user);
-  
+
   const navigate = useNavigate();
   const {
     register,
@@ -37,20 +37,21 @@ const Login = () => {
 
   useEffect(() => {
     if (status === "succeeded" && data) {
-      if (data.token) {
-        Cookies.set(token, data.token);
-      }
-      toast.success(
-        `Welcome back ${data.data.fullName}, you'll soon be redirected to the Home page`,
-        {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-        }
-      );
+      if ("token" in data) {
+        const { token, data: userData } = data;
+        Cookies.set(tknCookie, token);
+        toast.success(
+          `Welcome back ${userData.fullName}, you'll soon be redirected to the Home page`,
+          {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000,
+          }
+        );
 
-      setTimeout(() => {
-        navigate(routePaths.home);
-      }, 3500);
+        setTimeout(() => {
+          navigate(routePaths.home);
+        }, 3500);
+      }
     }
   }, [status, data, navigate]);
 

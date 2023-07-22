@@ -1,12 +1,12 @@
 import Cookies from "js-cookie";
-import { User } from "../store/reducers/users/userInterfaces";
+import { LoginResponse, User } from "../store/reducers/users/userInterfaces";
 import { token as tknCookie } from "../constants/cookies";
 import { API_URL, AUTH_URL } from "../constants/apiURL";
 
 export const authenticateUser = async (credentials: {
   email: string,
   password: string
-}): Promise<User> => {
+}): Promise<LoginResponse> => {
   const response = await fetch(`${AUTH_URL}local/login`, {
     method: "POST",
     headers: {
@@ -19,7 +19,7 @@ export const authenticateUser = async (credentials: {
     throw new Error("Server responded with a non-200 status code");
   }
 
-  const data: User = await response.json();
+  const data: LoginResponse = await response.json();
   return data;
 };
 
