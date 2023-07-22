@@ -8,6 +8,14 @@ export interface User {
   profilePicture?: string;
   project: Project[];
 }
+export interface LoginResponse {
+  message: string;
+  data: {
+    email: string;
+    fullName: string;
+  };
+  token: string;
+}
 
 export interface Project {
   id: string;
@@ -18,7 +26,7 @@ export interface Project {
 }
 
 export interface UserState {
-  data: null | User;
+  data: null | User | LoginResponse;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
   deleted: boolean;
