@@ -4,8 +4,9 @@ const texts = {
   email: "Email",
   loginError: "This field is required",
   password: "Password",
-  submit: "Submit"
-  
+  submit: "Submit",
+  loginRedirect: "Not registered yet?",
+  loginRedirectLink: "Click here to sign up!"
 }
 
 export default texts
