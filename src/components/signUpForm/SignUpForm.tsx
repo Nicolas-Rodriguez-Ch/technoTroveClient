@@ -1,5 +1,6 @@
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { FormValues } from "../../types/formInterfaces";
+import InputField from "../inputField/InputField";
 
 interface SignupPageProps {
   onSubmit: SubmitHandler<FormValues>;
@@ -25,47 +26,45 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
     control,
     name: "contactInfo",
   });
-  const INPUT_CLASSNAME = "p-1 text-custom-black";
-  const BUTTON_CLASSNAME = "bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-1 font-bold";
+  const BUTTON_CLASSNAME =
+  "bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-1 font-bold m-4 text-sm sm:text-base";
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col text-rigth gap-3"
+      className="flex flex-col text-rigth gap-3 m-4"
     >
-      <label htmlFor="fullName">Full Name</label>
-      <input
-        className={`${INPUT_CLASSNAME}`}
+      <InputField
+        register={register}
         id="fullName"
-        {...register("fullName", {
+        label="Full Name"
+        rules={{
           required: {
             value: true,
             message: "Full Name is required",
           },
-        })}
+        }}
+        errors={errors.fullName}
       />
-      <p className="text-red-600 text-sm">{errors.fullName?.message}</p>
-
-      <label htmlFor="email">Email</label>
-      <input
-        className={`${INPUT_CLASSNAME}`}
+      <InputField
+        register={register}
         id="email"
+        label="Email"
         type="email"
-        {...register("email", {
+        rules={{
           required: {
             value: true,
             message: "Email is required",
           },
-        })}
+        }}
+        errors={errors.email}
       />
-      <p className="text-red-600 text-sm">{errors.email?.message}</p>
-
-      <label htmlFor="password">Password</label>
-      <input
-        className={`${INPUT_CLASSNAME}`}
+      <InputField
+        register={register}
         id="password"
+        label="Password"
         type="password"
-        {...register("password", {
+        rules={{
           required: {
             value: true,
             message: "Password is required",
@@ -75,15 +74,16 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
             message:
               "Password must be at least 8 characters long and contain at least one letter and one number",
           },
-        })}
+        }}
+        errors={errors.password}
       />
-      <p className="text-red-600 text-sm">{errors.password?.message}</p>
 
-      <label htmlFor="description">Description</label>
-      <textarea
-        className={`${INPUT_CLASSNAME}`}
+      <InputField
+        register={register}
         id="description"
-        {...register("description", {
+        label="Description"
+        type="textarea"
+        rules={{
           required: {
             value: true,
             message: "Description is required",
@@ -96,34 +96,29 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
             value: 500,
             message: "Description cannot exceed 500 characters",
           },
-        })}
+        }}
+        errors={errors.description}
       />
-      <p className="text-red-600 text-sm">{errors.description?.message}</p>
 
       {fields.map((item, index) => (
-        <div key={item.id} className="flex flex-col text-rigth gap-3">
-          <label htmlFor={`contactInfo${index + 1}`}>
-            Contact Info {index + 1}
-          </label>
-          <input
-            className={`${INPUT_CLASSNAME}`}
-            id={`contactInfo${index + 1}`}
-            {...register(`contactInfo.${index}.field`, {
-              required: {
-                value: true,
-                message: "Contact Info is required",
-              },
-            })}
-          />
-          <p className="text-red-600 text-sm">
-            {errors.contactInfo && errors.contactInfo[index]?.field?.message}
-          </p>
-        </div>
+        <InputField
+          key={item.id}
+          register={register}
+          id={`contactInfo.${index + 1}`}
+          label={`Contact Info ${index + 1}`}
+          rules={{
+            required: {
+              value: true,
+              message: "Contact Info is required",
+            },
+          }}
+          errors={errors.contactInfo && errors.contactInfo[index]?.field}
+        />
       ))}
       {fields.length < 5 && (
         <button
           type="button"
-          className={`${BUTTON_CLASSNAME}`}
+          className={`${BUTTON_CLASSNAME} `}
           onClick={() => append({ field: "" })}
         >
           Add Contact Info
@@ -138,13 +133,11 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
           Remove
         </button>
       )}
-      <label htmlFor="image" className="p-1 text-custom-black">
-        Upload an image (optional)
-      </label>
-      <input
+      <InputField
+        register={register}
         id="image"
+        label="Upload an image (optional)"
         type="file"
-        {...register("image")}
         accept=".png, .jpg, .jpeg"
       />
       <button type="submit" className={`${BUTTON_CLASSNAME}`}>
