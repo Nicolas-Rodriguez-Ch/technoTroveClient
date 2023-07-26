@@ -2,10 +2,11 @@ import { SubmitHandler } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
 import SignUpForm from "../../components/signUpForm/SignUpForm";
 import { FormValues } from "../../types/formInterfaces";
+import { createUser } from "../../services/userAPI";
 
 const SignUp = () => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+    createUser(data);
   };
 
   return (
