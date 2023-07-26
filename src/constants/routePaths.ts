@@ -1,8 +1,8 @@
 const routePaths = {
   home: "/",
   notFound: "*",
-  login: "login",
-  register: "register",
+  login: "/login",
+  signUp: "/signup",
 };
 
 export default routePaths;

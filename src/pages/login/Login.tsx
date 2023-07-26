@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../store/store";
-import { loginUser } from "../../store/reducers/users/userSlice";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { RootState, AppDispatch } from "../../store/store";
+import { loginUser } from "../../store/reducers/users/userSlice";
 import texts from "../../utils/texts";
 import { token as tknCookie } from "../../constants/cookies";
-import { ToastContainer, toast } from "react-toastify";
 import Cookies from "js-cookie";
 import "react-toastify/dist/ReactToastify.css";
 import routePaths from "../../constants/routePaths";
@@ -77,6 +78,12 @@ const Login = () => {
       <section className="flex flex-col items-center bg-custom-black text-custom-mint p-4 gap-1">
         <h1 className="text-3xl font-bold">{texts.login}</h1>
         <LoginForm onSubmit={onSubmit} />
+        <section>
+          <p>{texts.loginRedirect}</p>
+          <Link to={routePaths.login}>
+            {texts.loginRedirectLink}
+          </Link>
+        </section>
       </section>
     </>
   );
