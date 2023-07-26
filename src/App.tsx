@@ -6,8 +6,9 @@ import Footer from "./components/footer/Footer";
 import routePaths from "./constants/routePaths";
 import Login from "./pages/login/Login";
 import SignUp from "./pages/signUp/SignUp";
+import AllUsers from "./pages/allUsers/AllUsers";
 
-function App() {
+function App() {  
   return (
     <main className="App">
       <Header />
@@ -16,6 +17,7 @@ function App() {
         <Route path={routePaths.home} element={<Home />} />
         <Route path={routePaths.login} element={<Login />} />
         <Route path={routePaths.signUp} element={<SignUp />} />
+        <Route path={routePaths.allUsers} element={<AllUsers />} />
       </Routes>
       <Footer />
     </main>
