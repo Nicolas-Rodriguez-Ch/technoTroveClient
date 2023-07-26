@@ -4,6 +4,8 @@ const routePaths = {
   login: "login",
   register: "register",
   profile: "profile",
+  login: "/login",
+  signUp: "/signup",
 };
 
 export default routePaths;

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { handleReduxError } from "../../../utils/errorHandling";
 
-import { User, UserState } from "./userInterfaces";
+import { LoginResponse, User, UserState } from "./userInterfaces";
 import {
   authenticateUser,
   getUser,
@@ -23,7 +23,7 @@ export const loginUser = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const data: User = await authenticateUser(credentials);
+      const data: LoginResponse = await authenticateUser(credentials);
       return data;
     } catch (error) {
       return rejectWithValue(handleReduxError(error));
@@ -82,7 +82,7 @@ export const userSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(loginUser.fulfilled, (state, action: PayloadAction<User>) => {
+      .addCase(loginUser.fulfilled, (state, action: PayloadAction<LoginResponse>) => {
         state.status = "succeeded";
         state.data = action.payload;
       })
