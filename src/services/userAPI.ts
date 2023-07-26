@@ -52,7 +52,7 @@ export const authenticateUser = async (credentials: {
 
 export const getUser = () => {
   const token = Cookies.get(tknCookie);
-  return fetch(`${API_URL}profile`, {
+  return fetch(`${API_URL}users/profile`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
