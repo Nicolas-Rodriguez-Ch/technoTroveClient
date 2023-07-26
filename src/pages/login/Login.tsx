@@ -78,9 +78,9 @@ const Login = () => {
       <section className="flex flex-col items-center bg-custom-black text-custom-mint p-4 gap-1">
         <h1 className="text-3xl font-bold">{texts.login}</h1>
         <LoginForm onSubmit={onSubmit} />
-        <section className="">
+        <section>
           <p>{texts.loginRedirect}</p>
-          <Link to={routePaths.signUp}>
+          <Link to={routePaths.login}>
             {texts.loginRedirectLink}
           </Link>
         </section>
