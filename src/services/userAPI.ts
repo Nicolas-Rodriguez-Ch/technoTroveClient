@@ -91,3 +91,15 @@ export const deleteUserAsync = async () => {
     throw new Error("Server responded with a non-200 status code");
   }
 };
+
+export const getAllUsers = async () => {
+  const response = await fetch(`${API_URL}users`, {
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    throw new Error("Server responded with a non-200 status code");
+  }
+  const data = await response.json();
+  return data;
+};

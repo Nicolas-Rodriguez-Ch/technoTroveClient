@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { fetchUser } from "./store/reducers/users/userSlice";
 import { AppDispatch } from "./store/store";
 import Profile from "./pages/Profile/Profile"
-
+import AllUsers from "./pages/allUsers/AllUsers";
 
 
 function App() {
@@ -36,6 +36,7 @@ function App() {
         <Route path={routePaths.login} element={<Login />} />
         <Route path={routePaths.signUp} element={<SignUp />} />
         <Route path={routePaths.profile} element={<Profile />} />
+        <Route path={routePaths.allUsers} element={<AllUsers />} />
       </Routes>
       <Footer />
     </main>
