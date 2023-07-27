@@ -14,7 +14,7 @@ const UserPreview = ({
   description,
 }: UserPreviewProps) => {
   return (
-    <main className="flex flex-col md:flex-row justify-center items-start md:items-center text-custom-mint p-4 border-2 border-custom-blue rounded-xl w-[300px] md:w-[650px]">
+    <main className="flex flex-col md:flex-row justify-center items-start md:items-center text-custom-mint p-4 border-2 border-custom-blue rounded-xl w-[300px] md:w-[650px] transition duration-300 ease-in-out hover:bg-custom-mint hover:text-custom-black">
       <section className="flex justify-center md:mr-3">
         {profilePicture ? (
           <img
@@ -28,7 +28,7 @@ const UserPreview = ({
       </section>
       <section className="md:ml-4 space-y-4">
         <section className="md:flex md:gap-4">
-          <h1 className="text-2xl text-custom-light-blue font-bold">{fullName}</h1>
+          <h1 className="text-2xl text-custom-blue font-bold">{fullName}</h1>
           <h1 className="text-lg opacity-80">{email}</h1>
         </section>
         <p className="text-md opacity-75">{description}</p>
