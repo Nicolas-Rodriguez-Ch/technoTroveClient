@@ -6,9 +6,25 @@ import Footer from "./components/footer/Footer";
 import routePaths from "./constants/routePaths";
 import Login from "./pages/login/Login";
 import SignUp from "./pages/signUp/SignUp";
+import Cookies from "js-cookie";
+import { token as tknCookie } from "./constants/cookies";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "./store/reducers/users/userSlice";
+import { AppDispatch } from "./store/store";
 import AllUsers from "./pages/allUsers/AllUsers";
 
-function App() {  
+function App() {
+  const dispatch: AppDispatch = useDispatch();
+
+  //sets user in the store if token exist
+  useEffect(() => {
+    const token = Cookies.get(tknCookie);
+    if (token) {
+      dispatch(fetchUser());
+    }
+  });
+
   return (
     <main className="App">
       <Header />

@@ -25,7 +25,7 @@ const SignUp = () => {
         <SignUpForm onSubmit={onSubmit} />
         <section>
           <p>{texts.signUpRedirect}</p>
-          <Link to={routePaths.signUp}>
+          <Link to={routePaths.login}>
             {texts.signUpRedirectLink}
           </Link>
         </section>
