@@ -80,7 +80,7 @@ const Login = () => {
         <LoginForm onSubmit={onSubmit} />
         <section>
           <p>{texts.loginRedirect}</p>
-          <Link to={routePaths.login}>
+          <Link to={routePaths.signUp}>
             {texts.loginRedirectLink}
           </Link>
         </section>

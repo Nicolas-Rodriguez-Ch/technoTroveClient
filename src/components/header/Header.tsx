@@ -1,18 +1,22 @@
 import { useState, useEffect, useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CgProfile } from "react-icons/cg";
-import { banner } from "../../assets/images";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { isLogged, token } from "../../constants/cookies";
+import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
 import routePaths from "../../constants/routePaths";
+import { banner } from "../../assets/images";
 import { User } from "../../store/reducers/users/userInterfaces";
-import { isLogged } from "../../constants/cookies";
+import { logoutUser } from "../../store/reducers/users/userSlice";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const dispatch: AppDispatch = useDispatch();
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -30,6 +34,8 @@ const Header = () => {
   };
 
   const logOut = () => {
+    Cookies.remove(token);
+    dispatch(logoutUser());
     navigate(routePaths.login);
   };
 
@@ -47,7 +53,7 @@ const Header = () => {
           />
         </Link>
       </section>
-      <section className="relative" onClick={menuClick}>
+      <section className="relative  cursor-pointer" onClick={menuClick}>
         {user ? (
           user.profilePicture ? (
             <img src={user.profilePicture} alt={user.fullName} />

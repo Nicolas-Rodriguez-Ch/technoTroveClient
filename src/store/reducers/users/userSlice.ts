@@ -6,7 +6,7 @@ import {
   authenticateUser,
   getUser,
   updateUserAsync,
-  deleteUserAsync
+  deleteUserAsync,
 } from "../../../services/userAPI";
 
 const initialState: UserState = {
@@ -73,19 +73,25 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    logoutUser: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(loginUser.fulfilled, (state, action: PayloadAction<LoginResponse>) => {
-        state.status = "succeeded";
-        state.data = action.payload;
-      })
+      .addCase(
+        loginUser.fulfilled,
+        (state, action: PayloadAction<LoginResponse>) => {
+          state.status = "succeeded";
+          state.data = action.payload;
+        }
+      )
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload
@@ -135,4 +141,5 @@ export const userSlice = createSlice({
   },
 });
 
+export const { logoutUser } = userSlice.actions;
 export default userSlice.reducer;
