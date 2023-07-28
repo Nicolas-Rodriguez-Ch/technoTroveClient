@@ -3,7 +3,9 @@ const routePaths = {
   notFound: "*",
   login: "/login",
   signUp: "/signup",
-  allUsers: "/users"
+  allUsers: "/users",
+  profile: "/profile",
+  portfolio: "/portfolio"
 };
 
 export default routePaths;
