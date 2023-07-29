@@ -29,7 +29,12 @@ const texts = {
   signUpSuccess: "Account created successfully",
   signUpError: "There was an error creating your account",
   signUpRedirect: "Already have an account?",
-  signUpRedirectLink: "Click here to log in!"
+  signUpRedirectLink: "Click here to log in!",
+  menuAllUsers: "Look for a user",
+  profile: "Profile",
+  portfolio: "Portfolio",
+  logout: "Logout",
+  signup: "Signup",
 };
 
 export default texts;

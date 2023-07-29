@@ -10,6 +10,7 @@ import routePaths from "../../constants/routePaths";
 import { banner } from "../../assets/images";
 import { User } from "../../store/reducers/users/userInterfaces";
 import { logoutUser } from "../../store/reducers/users/userSlice";
+import texts from "../../utils/texts";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -70,31 +71,33 @@ const Header = () => {
           }`}
           style={{ transformOrigin: "right top" }}
         >
-          {isLogged() ? (
-            <>
-              <Link to={routePaths.profile} className={linkStyles}>
-                Profile
-              </Link>
-              <Link to={routePaths.portfolio} className={linkStyles}>
-                Portfolio
-              </Link>
-              <button onClick={logOut} className={linkStyles}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to={routePaths.allUsers} className={linkStyles}>
-                Look for a user
-              </Link>
-              <Link to={routePaths.login} className={linkStyles}>
-                Login
-              </Link>
-              <Link to={routePaths.signUp} className={linkStyles}>
-                Signup
-              </Link>
-            </>
-          )}
+          <>
+            <Link to={routePaths.allUsers} className={linkStyles}>
+              {texts.menuAllUsers}
+            </Link>
+            {isLogged() ? (
+              <>
+                <Link to={routePaths.profile} className={linkStyles}>
+                  {texts.profile}
+                </Link>
+                <Link to={routePaths.portfolio} className={linkStyles}>
+                  {texts.portfolio}
+                </Link>
+                <button onClick={logOut} className={linkStyles}>
+                  {texts.logout}
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to={routePaths.login} className={linkStyles}>
+                  {texts.login}
+                </Link>
+                <Link to={routePaths.signUp} className={linkStyles}>
+                  {texts.signup}
+                </Link>
+              </>
+            )}
+          </>
         </div>
       </section>
     </main>
