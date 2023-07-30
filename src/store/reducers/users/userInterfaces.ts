@@ -7,6 +7,7 @@ export interface User {
   contactInfo: string[];
   profilePicture?: string;
   project: Project[];
+  data?: any;
 }
 export interface LoginResponse {
   message: string;
