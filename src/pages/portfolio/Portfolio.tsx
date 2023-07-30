@@ -1,4 +1,3 @@
-import React from "react";
 import PortfolioCard from "../../components/portfolioCard/PortfolioCard";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
