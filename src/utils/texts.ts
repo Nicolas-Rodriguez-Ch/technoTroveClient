@@ -35,6 +35,9 @@ const texts = {
   portfolio: "Portfolio",
   logout: "Logout",
   signup: "Signup",
+  portoflioFirstTitle: "Your projects",
+  portoflioSecondTitle: "Add a project"
+
 };
 
 export default texts;

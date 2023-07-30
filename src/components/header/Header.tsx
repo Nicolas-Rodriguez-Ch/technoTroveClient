@@ -41,8 +41,14 @@ const Header = () => {
   };
 
   const user = useSelector((state: RootState) => state.user.data as User);
+  const status = useSelector((state: RootState) => state.user.status);
   const linkStyles =
     "block px-4 py-3 text-sm text-custom-mint border-b border-custom-mint hover:bg-custom-mint hover:text-custom-black w-full text-left font-semibold";
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
   return (
     <main className="bg-custom-blue text-custom-mint p-4 flex justify-between items-center">
       <section className="flex flex-col md:flex-row gap-1 md:gap-4 items-center">
@@ -54,18 +60,22 @@ const Header = () => {
           />
         </Link>
       </section>
-      <section className="relative  cursor-pointer" onClick={menuClick}>
-        {user ? (
-          user.profilePicture ? (
-            <img src={user.profilePicture} alt={user.fullName} />
-          ) : (
-            <CgProfile size={50} />
-          )
+      <section
+        className="relative cursor-pointer"
+        onClick={menuClick}
+        ref={menuRef}
+      >
+        {user && user.data && user.data.profilePicture ? (
+          <img
+            className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover"
+            src={user.data.profilePicture}
+            alt={user.data.fullName}
+          />
         ) : (
-          <GiHamburgerMenu size={50} />
+          user && <CgProfile size={50} />
         )}
+        {!user && <GiHamburgerMenu size={50} />}
         <div
-          ref={menuRef}
           className={`absolute right-0 top-full mt-2 w-64 md:w-72 rounded-md shadow-lg py-2 bg-custom-blue border border-custom-mint ring-opacity-5 transition-transform duration-200 ease-in-out transform origin-top ${
             showMenu ? "scale-y-100" : "scale-y-0"
           }`}

@@ -8,6 +8,7 @@ export default {
         "custom-blue": "#176B87",
         "custom-light-blue": "#64CCC5",
         "custom-mint": "#DAFFFB",
+        "custom-red": "#Ef3F3F"
       },
     },
   },
