@@ -1,4 +1,3 @@
-
 export interface ContactInfo {
   field: string;
 }
@@ -10,4 +9,18 @@ export interface FormValues {
   description: string;
   contactInfo: ContactInfo[];
   image: FileList;
+}
+export interface ProjectField {
+  field: string;
+}
+
+export interface ProjectImageField {
+  imageField: string;
+}
+
+export interface ProjectForm {
+  title: string;
+  description: string;
+  links: ProjectField[];
+  images: ProjectImageField[];
 }

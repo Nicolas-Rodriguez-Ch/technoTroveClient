@@ -1,3 +1,5 @@
+import texts from "../../utils/texts";
+
 interface ProjectCardProps {
   image: string;
   title: string;
@@ -20,10 +22,10 @@ const ProjectCard = ({ image, title, description }: ProjectCardProps) => {
       </div>
       <div className="flex gap-4 mt-4 md:mt-0">
         <button className="bg-custom-red w-auto p-2 font-bold rounded-3xl text-custom-mint border-2 border-custom-black hover:text-custom-red hover:bg-custom-mint">
-          Delete
+          {texts.delete}
         </button>
         <button className="bg-custom-blue w-auto p-2 font-bold rounded-2xl text-custom-mint border-2 border-custom-black hover:text-custom-black hover:bg-custom-mint">
-          Edit
+          {texts.edit}
         </button>
       </div>
     </section>

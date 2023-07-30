@@ -7,10 +7,17 @@ import ProjectCard from "../projectCard/ProjectCard";
 interface PortfolioCardProps {
   title: string;
   projects?: Project[];
+  children?: React.ReactNode;
+  menuOpen?: boolean;
 }
 
-const PortfolioCard = ({ title, projects }: PortfolioCardProps) => {
-  const [showMenu, setShowMenu] = useState(true);
+const PortfolioCard = ({
+  title,
+  projects,
+  children,
+  menuOpen = true,
+}: PortfolioCardProps) => {
+  const [showMenu, setShowMenu] = useState(menuOpen);
   const [height, setHeight] = useState("0px");
 
   const contentArea = useRef<HTMLDivElement | null>(null);
@@ -21,9 +28,20 @@ const PortfolioCard = ({ title, projects }: PortfolioCardProps) => {
   };
 
   useEffect(() => {
-    if (showMenu) {
-      setHeight(`${contentArea.current?.scrollHeight}px`);
+    setHeight(showMenu ? `${contentArea.current?.scrollHeight}px` : "0px");
+
+    const observer = new MutationObserver(() => {
+      setHeight(showMenu ? `${contentArea.current?.scrollHeight}px` : "0px");
+    });
+
+    if (contentArea.current) {
+      observer.observe(contentArea.current, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+      });
     }
+    return () => observer.disconnect();
   }, [projects, showMenu]);
 
   return (
@@ -51,6 +69,7 @@ const PortfolioCard = ({ title, projects }: PortfolioCardProps) => {
               </div>
             );
           })}
+        {children}
       </section>
     </main>
   );
