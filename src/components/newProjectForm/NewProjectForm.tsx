@@ -37,12 +37,16 @@ const NewProjectForm = () => {
     }
   };
   const BUTTON_CLASSNAME =
-    "bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-1 font-bold m-4 text-sm sm:text-base";
+    "bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-2 font-bold m-4 text-sm sm:text-base rounded-md";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="p-4 text-center">
-      <h1>title</h1>
-      <div>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="p-4 md:p-8 mx-auto flex flex-col md:flex-row md:flex-wrap justify-center items-center"
+    >
+      <h1 className="w-full text-center text-3xl md:text-4xl mb-6">title</h1>
+
+      <div className="w-full">
         <InputField
           register={register}
           id="title"
@@ -56,6 +60,9 @@ const NewProjectForm = () => {
           }}
           errors={errors.title}
         />
+      </div>
+
+      <div className="w-full">
         <InputField
           register={register}
           id="description"
@@ -70,7 +77,7 @@ const NewProjectForm = () => {
             minLength: {
               value: 20,
               message:
-                "The project desctiption must be at leas 20 characters long",
+                "The project description must be at least 20 characters long",
             },
             maxLength: {
               value: 500,
@@ -80,13 +87,15 @@ const NewProjectForm = () => {
           }}
           errors={errors.description}
         />
+      </div>
+      <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 md:mb-0">
         {fields.map((item, index) => (
-          <div key={item.id}>
+          <div key={item.id} className="w-full">
             <InputField
               register={register}
               id={`links[${index}].field`}
               label={`project link ${index + 1}`}
-              placeHolder="Links associated with the porject, can be reposository, deploy link, etc"
+              placeHolder="Links associated with the project, can be repository, deploy link, etc"
               rules={{
                 required: {
                   value: true,
@@ -95,31 +104,32 @@ const NewProjectForm = () => {
               }}
               errors={errors.links && errors.links[index]?.field}
             />
+            {index === fields.length - 1 && (
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  className={`${BUTTON_CLASSNAME}`}
+                  onClick={() => append({ field: "" })}
+                >
+                  {texts.signUpAddButton}
+                </button>
+                {fields.length > 1 && (
+                  <button
+                    type="button"
+                    className={`${BUTTON_CLASSNAME}`}
+                    onClick={() => remove(index)}
+                  >
+                    {texts.remove}
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         ))}
-        <div className="w-full md:col-span-3 flex justify-center">
-          {fields.length < 5 && (
-            <button
-              type="button"
-              className={`${BUTTON_CLASSNAME}`}
-              onClick={() => append({ field: "" })}
-            >
-              {texts.signUpAddButton}
-            </button>
-          )}
-
-          {fields.length > 1 && (
-            <button
-              type="button"
-              className={`${BUTTON_CLASSNAME}`}
-              onClick={() => remove(fields.length - 1)}
-            >
-              {texts.remove}
-            </button>
-          )}
-        </div>
+      </div>
+      <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 md:mb-0">
         {imageFields.map((item, index) => (
-          <div key={item.id}>
+          <div key={item.id} className="w-full">
             <InputField
               register={register}
               id={`images[${index}].imageField`}
@@ -135,37 +145,35 @@ const NewProjectForm = () => {
               errors={errors.images && errors.images[index]?.imageField}
               accept=".png, .jpg, .jpeg"
             />
+            {index === imageFields.length - 1 && (
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  className={`${BUTTON_CLASSNAME}`}
+                  onClick={() => appendImage({ imageField: "" })}
+                >
+                  {texts.signUpAddButton}
+                </button>
+                {imageFields.length > 1 && (
+                  <button
+                    type="button"
+                    className={`${BUTTON_CLASSNAME}`}
+                    onClick={() => removeImage(index)}
+                  >
+                    {texts.remove}
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         ))}
-
-        <div className="w-full md:col-span-3 flex justify-center">
-          {imageFields.length < 5 && (
-            <button
-              type="button"
-              className={`${BUTTON_CLASSNAME}`}
-              onClick={() => appendImage({ imageField: "" })}
-            >
-              {texts.signUpAddButton}
-            </button>
-          )}
-
-          {imageFields.length > 1 && (
-            <button
-              type="button"
-              className={`${BUTTON_CLASSNAME}`}
-              onClick={() => removeImage(imageFields.length - 1)}
-            >
-              {texts.remove}
-            </button>
-          )}
-        </div>
       </div>
-      <button
-        type="submit"
-        className="bg-custom-red text-custom-mint font-bold rounded-lg p-2"
-      >
-        {texts.submit}
-      </button>
+
+      <div className="w-full flex justify-center mt-4">
+        <button type="submit" className={`${BUTTON_CLASSNAME}`}>
+          {texts.submit}
+        </button>
+      </div>
     </form>
   );
 };

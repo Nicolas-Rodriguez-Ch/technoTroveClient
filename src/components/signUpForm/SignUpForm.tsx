@@ -2,6 +2,7 @@ import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { FormValues } from "../../types/formInterfaces";
 import InputField from "../inputField/InputField";
 import texts from "../../utils/texts";
+import { text } from "express";
 
 interface SignupPageProps {
   onSubmit: SubmitHandler<FormValues>;
@@ -157,6 +158,7 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
           label={texts.signUpPFP}
           type="file"
           accept=".png, .jpg, .jpeg"
+          placeHolder={texts.signUpPFPPlaceHolder}
         />
         <button type="submit" className={`w-full ${BUTTON_CLASSNAME}`}>
           {texts.submit}

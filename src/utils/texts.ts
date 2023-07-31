@@ -26,6 +26,7 @@ const texts = {
   signUpAddButton: "Add Contact Information",
   remove: "Remove",
   signUpPFP: "Upload a Profile Picture (optional)",
+  signUpPFPPlaceHolder: "Click here to add you profile picture!",
   signUpSuccess: "Account created successfully",
   signUpError: "There was an error creating your account",
   signUpRedirect: "Already have an account?",
