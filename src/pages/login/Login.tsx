@@ -44,12 +44,8 @@ const Login = () => {
       const { token, data: userData } = data;
       Cookies.set(tknCookie, token);
       toast.success(
-        `Welcome back ${userData.fullName}, you'll soon be redirected to the Home page`,
-        {
-          position: toast.POSITION.TOP_RIGHT,
-        }
+        `Welcome back ${userData.fullName}, you'll soon be redirected to the Home page`
       );
-
       setTimeout(() => {
         navigate(routePaths.home);
       }, 5750);
@@ -58,9 +54,7 @@ const Login = () => {
 
   const handleFailedLogin = (status: string, error: string | null) => {
     if (status === "failed" && error) {
-      toast.error(`Log in failed: ${error}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      toast.error(`Log in failed: ${error}`);
     }
   };
 
@@ -80,9 +74,7 @@ const Login = () => {
         <LoginForm onSubmit={onSubmit} />
         <section>
           <p>{texts.loginRedirect}</p>
-          <Link to={routePaths.signUp}>
-            {texts.loginRedirectLink}
-          </Link>
+          <Link to={routePaths.signUp}>{texts.loginRedirectLink}</Link>
         </section>
       </section>
     </>

@@ -6,12 +6,17 @@ import { createUser } from "../../services/userAPI";
 import texts from "../../utils/texts";
 import { Link } from "react-router-dom";
 import routePaths from "../../constants/routePaths";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       await createUser(data);
       toast.success(texts.signUpSuccess);
+      setTimeout(() => {
+        navigate(routePaths.login);
+      }, 5750);
     } catch (error) {
       toast.error(texts.signUpError);
     }
@@ -25,9 +30,7 @@ const SignUp = () => {
         <SignUpForm onSubmit={onSubmit} />
         <section>
           <p>{texts.signUpRedirect}</p>
-          <Link to={routePaths.login}>
-            {texts.signUpRedirectLink}
-          </Link>
+          <Link to={routePaths.login}>{texts.signUpRedirectLink}</Link>
         </section>
       </main>
     </>
