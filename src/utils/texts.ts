@@ -27,7 +27,7 @@ const texts = {
   remove: "Remove",
   signUpPFP: "Upload a Profile Picture (optional)",
   signUpPFPPlaceHolder: "Click here to add you profile picture!",
-  signUpSuccess: "Account created successfully",
+  signUpSuccess: "Account created successfully, now please log in",
   signUpError: "There was an error creating your account",
   signUpRedirect: "Already have an account?",
   signUpRedirectLink: "Click here to log in!",
@@ -40,6 +40,34 @@ const texts = {
   portoflioSecondTitle: "Add a project",
   delete: "Delete",
   edit: "Edit",
+  portfolioText:
+    "Here you can see your projects, delete or edit them or create a new project.",
+  deleteProjectWarning:
+    "Are you sure you want to delete this project? This action cannot be undone.",
+  deleteProjectSuccess: "Project deleted Successfully",
+  deleteProjectError: "Failed to delete the project",
+  projectsMissing: "No projects to show at them moment.",
+  newProjectFormTitle: "Create a new project for your portfolio",
+  newProjectSuccess: "Project created succesfully!",
+  newProjectError: "Error creating the project, please try again later.",
+  newProjectTitle: "New Project Title",
+  newProjectTitleError: "You must provide a title for this project",
+  newProjectDescription: "New project description",
+  newProjectDescriptionPlaceHolder: "Write a description about this project.",
+  newProjectDescriptionError: "Project must have a description",
+  newProjedctDescriptionErrorTwo:
+    "The project description must be at least 20 characters long.",
+  newProjedctDescriptionErrorThree:
+    "The description for this poject can't be longer than 500 characters long.",
+  newProjectLink: "Project Link",
+  newProjectLinkPlaceHolder:
+    "Links associated with the project, can be repository, deploy link, etc.",
+  newProjectLinkError: "You must provide a link",
+  newProjectAddLink: "Add another link",
+  newProjectImage: "Project Image",
+  newProjectImagePlaceHolder: "Upload an image associated with the  project.",
+  newProjectImageError: "You must provide an image.",
+  newProjectImageAdd: "Add another image",
 };
 
 export default texts;

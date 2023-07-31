@@ -2,7 +2,6 @@ import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { FormValues } from "../../types/formInterfaces";
 import InputField from "../inputField/InputField";
 import texts from "../../utils/texts";
-import { text } from "express";
 
 interface SignupPageProps {
   onSubmit: SubmitHandler<FormValues>;

@@ -12,8 +12,9 @@ const Portfolio = () => {
   }
 
   return (
-    <section className="flex flex-col items-center bg-custom-black text-custom-mint p-4 gap-1">
-      <h1>Portfolio</h1>
+    <section className="flex flex-col items-center bg-custom-black text-custom-mint p-4 gap-2">
+      <h1 className="font-bold text-xl md:text-3xl">{texts.portfolio}</h1>
+      <p className="text-center md:text-left text-sm md:text-base">{texts.portfolioText}</p>
       <PortfolioCard
         title={texts.portoflioFirstTitle}
         projects={user?.data.Project ?? []}
