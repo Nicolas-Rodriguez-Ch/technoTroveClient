@@ -1,5 +1,4 @@
 import Cookies from "js-cookie";
-import { Project } from "../store/reducers/users/userInterfaces";
 import { token as tknCookie } from "../constants/cookies";
 import { API_URL } from "../constants/apiURL";
 import { ProjectForm } from "../types/formInterfaces";
