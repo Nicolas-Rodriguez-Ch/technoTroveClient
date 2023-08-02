@@ -14,6 +14,7 @@ import { fetchUser } from "./store/reducers/users/userSlice";
 import { AppDispatch } from "./store/store";
 import AllUsers from "./pages/allUsers/AllUsers";
 import Portfolio from "./pages/portfolio/Portfolio";
+import EditProject from "./pages/editProject/EditProject";
 
 function App() {
   const dispatch: AppDispatch = useDispatch();
@@ -36,6 +37,10 @@ function App() {
         <Route path={routePaths.signUp} element={<SignUp />} />
         <Route path={routePaths.allUsers} element={<AllUsers />} />
         <Route path={routePaths.portfolio} element={<Portfolio />} />
+        <Route
+          path={`${routePaths.editProject}/:id`}
+          element={<EditProject />}
+        />
       </Routes>
       <Footer />
     </main>

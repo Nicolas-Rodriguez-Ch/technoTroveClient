@@ -32,6 +32,9 @@ export const createProject = async (project: ProjectForm) => {
     },
     body: formData,
   });
+  if (!response.ok) {
+    throw new Error("Server responded with a non-200 status code");
+  }
   const data = await response.json();
   return data;
 };
@@ -44,6 +47,19 @@ export const deleteProject = async (id: string) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  if (!response.ok) {
+    throw new Error("Server responded with a non-200 status code");
+  }
+  const data = await response.json();
+  return data;
+};
+export const getProjectById = async (id: string) => {
+  const response = await fetch(`${API_URL}projects/${id}`, {
+    method: "GET",
+  });
+  if (!response.ok) {
+    throw new Error(`Error: ${response.statusText}`);
+  }
   const data = await response.json();
   return data;
 };
