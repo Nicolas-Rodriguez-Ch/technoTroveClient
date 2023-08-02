@@ -1,17 +1,5 @@
 import { useState } from "react";
-import { FieldError, RegisterOptions, UseFormRegister } from "react-hook-form";
-
-interface InputFieldProps {
-  register: UseFormRegister<any>;
-  id: string;
-  label: string;
-  type?: string;
-  rules?: RegisterOptions;
-  errors?: FieldError;
-  className?: string;
-  accept?: string;
-  placeHolder?: string;
-}
+import { InputFieldProps } from "./types";
 
 const InputField = ({
   register,
@@ -23,20 +11,24 @@ const InputField = ({
   className = "p-2 m-2 text-custom-black rounded-md",
   accept,
   placeHolder,
+  disabled = false,
+  defaultValue,
 }: InputFieldProps) => {
   const [fileChosen, setFileChosen] = useState(false);
   const Element = type === "textarea" ? "textarea" : "input";
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(type === 'file') {
+    if (type === "file") {
       setFileChosen(!!event.target.files?.length);
     }
-  }
+  };
 
   const extraProps =
     type === "file"
       ? {
-          className: `opacity-0 absolute top-0 left-0 w-full h-full cursor-pointer ${fileChosen ? 'bg-green-500' : ''}`,
+          className: `opacity-0 absolute top-0 left-0 w-full h-full cursor-pointer ${
+            fileChosen ? "bg-green-500" : ""
+          }`,
           ...(accept && { accept }),
           onChange: handleChange,
         }
@@ -53,8 +45,13 @@ const InputField = ({
             placeholder={placeHolder}
             {...register(id, rules)}
             {...extraProps}
+            disabled={disabled}
           />
-          <div className={`border-2 border-custom-mint bg-inherit rounded p-2 ${fileChosen ? 'bg-green-500 text-custom-black font-semibold' : ''}`}>
+          <div
+            className={`border-2 border-custom-mint rounded p-2 ${
+              fileChosen ? "bg-green-500 text-custom-black font-semibold" : ""
+            }`}
+          >
             <label htmlFor={id} className="cursor-pointer">
               {placeHolder}
             </label>
@@ -68,6 +65,8 @@ const InputField = ({
           placeholder={placeHolder}
           {...register(id, rules)}
           {...extraProps}
+          disabled={disabled}
+          defaultValue={defaultValue}
         />
       )}
       <p className="text-custom-red text-xs sm:text-sm">{errors?.message}</p>
