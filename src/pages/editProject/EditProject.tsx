@@ -37,14 +37,6 @@ const EditProject = () => {
     }
   };
 
-  const handleButtonClick = () => {
-    if (project) {
-      handleSubmit(project);
-    } else {
-      toast.error("Project data not available.");
-    }
-  };
-
   return (
     <section className="flex flex-col items-center bg-custom-black text-custom-mint p-4 gap-2">
       <ToastContainer />
@@ -59,9 +51,6 @@ const EditProject = () => {
           disabled={false}
         />
       )}
-      <button type="button" onClick={handleButtonClick}>
-        {texts.submit}
-      </button>
     </section>
   );
 };
