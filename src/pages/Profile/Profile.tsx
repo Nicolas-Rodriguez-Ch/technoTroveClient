@@ -12,15 +12,12 @@ const Profile = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const { data: user } = useSelector((state: RootState) => state.user);
 
-  console.log("🚀Profile.tsx user:", user)
-
-
   const toggleEditHandler = () => {
     setIsEditMode((prevEditMode) => !prevEditMode);
   };
 
   const submitUserUpdate = ()=> {
-    //update store and database
+    // send information to store and database.
   }
 
   return (
