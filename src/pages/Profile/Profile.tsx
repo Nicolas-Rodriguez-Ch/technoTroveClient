@@ -3,12 +3,16 @@ import React,{useState} from 'react'
 import { ToastContainer, toast } from "react-toastify";
 import { BsPencil } from "react-icons/bs";
 import UserInfo from '../../components/UserInfo/UserInfo'
-import { RootState } from "../../store/store";
+import { AppDispatch, RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import UpdateUserForm from '../../components/UpdateUserForm/UpdateUserForm';
-
+import { useDispatch } from 'react-redux';
+import { fetchUser, updateUser } from '../../store/reducers/users/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+  const navigate = useNavigate()
+  const dispatch: AppDispatch = useDispatch()
   const [isEditMode, setIsEditMode] = useState(false);
   const { data: user } = useSelector((state: RootState) => state.user);
 
@@ -16,8 +20,16 @@ const Profile = () => {
     setIsEditMode((prevEditMode) => !prevEditMode);
   };
 
-  const submitUserUpdate = ()=> {
-    // send information to store and database.
+  const submitUserUpdate = (data:any)=> {
+    try {
+      dispatch(updateUser(data))
+      toast.success("user updated successfully.")
+      setIsEditMode(false)
+    } catch (error) {
+      if(error instanceof Error){
+        toast.error(`Error: ${error.message} `)
+      }
+    }
   }
 
   return (
