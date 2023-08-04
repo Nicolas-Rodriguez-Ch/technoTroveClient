@@ -1,7 +1,8 @@
 import React from "react";
 import { FiUser } from "react-icons/fi";
+import { User } from "../../store/reducers/users/userInterfaces"
 
-function UserInfo({ user }) {
+function UserInfo({ user }: User) {
   return (
     <div className="flex flex-col gap-8 text-sm sm:text-base">
       <main className="">

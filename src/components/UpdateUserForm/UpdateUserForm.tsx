@@ -1,9 +1,8 @@
-import React from 'react';
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { FormValues } from "../../types/formInterfaces";
 import InputField from "../inputField/InputField";
 import texts from "../../utils/texts";
-
+import { FiUser } from "react-icons/fi";
 
 interface UpdatePageProps {
   onSubmit: SubmitHandler<FormValues>;
@@ -37,6 +36,32 @@ const UpdateUserForm = ({submitUserUpdate, user}) => {
       onSubmit={handleSubmit(submitUserUpdate)}
       className="flex flex-col text-right gap-4 m-4 md:grid md:grid-cols-3 md:gap-6"
     >
+
+<div className="profile-picture">
+          {user && user.data.img ? (
+            <img
+              src={user.data.img}
+              alt={user.data.fullName}
+              className="w-32 h-32 rounded-full object-cover"
+            />
+          ) : (
+            <FiUser className="w-32 h-32 rounded-full object-cover" />
+          )}
+        <InputField
+          register={register}
+          id="image"
+          label={texts.signUpPFP}
+          type="file"
+          placeHolder="Update user picture"
+          accept=".png, .jpg, .jpeg"
+          rules = { {required: false}}
+          defaultValue={user.data.image}
+          errors={errors.image}
+        />
+        </div>
+
+
+
       <div className="w-full md:col-span-1">
         <InputField
           register={register}
@@ -134,13 +159,7 @@ const UpdateUserForm = ({submitUserUpdate, user}) => {
         )}
       </div>
       <div className="w-full md:col-span-3 flex flex-col items-center">
-        <InputField
-          register={register}
-          id="image"
-          label={texts.signUpPFP}
-          type="file"
-          accept=".png, .jpg, .jpeg"
-        />
+
         <button type="submit" className={`w-full ${BUTTON_CLASSNAME}`} onSubmit={submitUserUpdate}>
           {texts.submit}
         </button>

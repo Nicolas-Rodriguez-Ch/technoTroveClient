@@ -62,12 +62,24 @@ export const getUser = () => {
 
 export const updateUserAsync = async (user: FormData): Promise<User> => {
   const token = Cookies.get(tknCookie);
+  const formData = new FormData();
+
+  Object.entries(user).forEach(([key, value]) => {
+    if (key === "contactInfo" && Array.isArray(value)) {
+      const contactInfoString = value.map((item) => item.field).join(", ");
+      formData.append(key, contactInfoString);
+    } else if (key === "image" && value instanceof FileList) {
+      formData.append("file", value[0]);
+    } else if (typeof value === "string") {
+      formData.append(key, value);
+    }
+  });
   const response = await fetch(`${API_URL}users`, {
     method: "PUT",
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    body: user,
+    body: formData,
   });
 
   if (!response.ok) {
