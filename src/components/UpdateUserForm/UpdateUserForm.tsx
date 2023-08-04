@@ -17,9 +17,10 @@ const UpdateUserForm = ({submitUserUpdate, user}) => {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      fullName: "",
-      description: "",
-      contactInfo: [{ field: "" }],
+      fullName: user.data.fullName,
+      email: user.data.email,
+      description: user.data.description,
+      contactInfo: user.data.contactInfo.map((info:string) => ({ field: info })), // Populate with the previous user's contactInfo array
     },
   });
 
@@ -40,8 +41,8 @@ const UpdateUserForm = ({submitUserUpdate, user}) => {
         <InputField
           register={register}
           id="fullName"
-          label={texts.fullName}
-          placeHolder={texts.fullName}
+          label={"texts.fullName"}
+          placeHolder={user.data.fullName}
           rules={{
             required: {
               value: true,
@@ -56,7 +57,7 @@ const UpdateUserForm = ({submitUserUpdate, user}) => {
           register={register}
           id="email"
           label={texts.email}
-          placeHolder={texts.email}
+          placeHolder={user.data.email}
           type="email"
           rules={{
             required: {
@@ -67,26 +68,7 @@ const UpdateUserForm = ({submitUserUpdate, user}) => {
           errors={errors.email}
         />
       </div>
-      <div className="w-full md:col-span-1">
-        <InputField
-          register={register}
-          id="password"
-          label={texts.password}
-          placeHolder={texts.password}
-          type="password"
-          rules={{
-            required: {
-              value: true,
-              message: texts.signUpPassError,
-            },
-            pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-              message: texts.signUpErrorRegEx,
-            },
-          }}
-          errors={errors.password}
-        />
-      </div>
+
       <div className="w-full md:col-span-3">
         <InputField
           register={register}
@@ -159,7 +141,7 @@ const UpdateUserForm = ({submitUserUpdate, user}) => {
           type="file"
           accept=".png, .jpg, .jpeg"
         />
-        <button type="submit" className={`w-full ${BUTTON_CLASSNAME}`}>
+        <button type="submit" className={`w-full ${BUTTON_CLASSNAME}`} onSubmit={submitUserUpdate}>
           {texts.submit}
         </button>
       </div>
