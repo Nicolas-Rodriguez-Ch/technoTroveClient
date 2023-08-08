@@ -13,13 +13,12 @@ const Profile = () => {
   const dispatch: AppDispatch = useDispatch()
   const [isEditMode, setIsEditMode] = useState(false);
   const { data: user } = useSelector((state: RootState) => state.user);
-  console.log("user in profile.tsx:", user)
 
   const toggleEditHandler = () => {
     setIsEditMode((prevEditMode) => !prevEditMode);
   };
 
-  const submitUserUpdate = (data:any)=> {
+  const submitUserUpdate = async (data:any)=> {
     try {
       const contactInfoArray = data.contactInfo.map((item: { field: string }) => item.field);
       const formattedData = {
@@ -45,7 +44,6 @@ const Profile = () => {
           :
           ( <UserInfo user={user}/> )
         }
-ofile.tsx to format the contactInfo data properly:
         <button className=''
           onClick={toggleEditHandler}>
           <BsPencil />
