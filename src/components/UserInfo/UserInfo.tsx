@@ -30,7 +30,7 @@ function UserInfo({ user }: User) {
         </div>
         <div className="contact-info">
           {user ? (
-            user.data.contactInfo.map((item:string, index:number) => (
+            user.data.contactInfo.map((item: string, index: number) => (
               <div key={index} className="mb-4">
                 <p>{item}</p>
               </div>
