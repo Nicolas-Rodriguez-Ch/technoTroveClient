@@ -66,14 +66,16 @@ export const updateUserAsync = async (user: FormData): Promise<User> => {
 
   Object.entries(user).forEach(([key, value]) => {
     if (key === "contactInfo" && Array.isArray(value)) {
-      const contactInfoString = value.map((item) => item.field).join(", ");
-      formData.append(key, contactInfoString);
+      value.forEach((item, index) => {
+        formData.append(`contactInfo[${index}]`, item.field);
+      });
     } else if (key === "image" && value instanceof FileList) {
       formData.append("file", value[0]);
     } else if (typeof value === "string") {
       formData.append(key, value);
     }
   });
+
   const response = await fetch(`${API_URL}users`, {
     method: "PUT",
     headers: {
@@ -89,6 +91,7 @@ export const updateUserAsync = async (user: FormData): Promise<User> => {
   const data: User = await response.json();
   return data;
 };
+
 
 export const deleteUserAsync = async () => {
   const token = Cookies.get(tknCookie);
