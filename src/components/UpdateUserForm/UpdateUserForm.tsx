@@ -66,7 +66,7 @@ const UpdateUserForm = ({submitUserUpdate, user}) => {
         <InputField
           register={register}
           id="fullName"
-          label={"texts.fullName"}
+          label={ texts.fullName }
           placeHolder={user.data.fullName}
           rules={{
             required: {
@@ -82,7 +82,7 @@ const UpdateUserForm = ({submitUserUpdate, user}) => {
           register={register}
           id="email"
           label={texts.email}
-          placeHolder={user.data.email}
+          placeHolder={user.data.email || texts.email }
           type="email"
           rules={{
             required: {

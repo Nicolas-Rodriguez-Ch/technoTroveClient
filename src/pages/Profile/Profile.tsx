@@ -7,14 +7,13 @@ import { AppDispatch, RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import UpdateUserForm from '../../components/UpdateUserForm/UpdateUserForm';
 import { useDispatch } from 'react-redux';
-import { fetchUser, updateUser } from '../../store/reducers/users/userSlice';
-import { useNavigate } from 'react-router-dom';
+import userSlice, { updateUser } from '../../store/reducers/users/userSlice';
 
 const Profile = () => {
-  const navigate = useNavigate()
   const dispatch: AppDispatch = useDispatch()
   const [isEditMode, setIsEditMode] = useState(false);
   const { data: user } = useSelector((state: RootState) => state.user);
+  console.log("user in profile.tsx:", user)
 
   const toggleEditHandler = () => {
     setIsEditMode((prevEditMode) => !prevEditMode);
@@ -22,10 +21,15 @@ const Profile = () => {
 
   const submitUserUpdate = (data:any)=> {
     try {
-      dispatch(updateUser(data))
+      const contactInfoArray = data.contactInfo.map((item: { field: string }) => item.field);
+      const formattedData = {
+        ...data,
+        contactInfo: contactInfoArray,
+      };
+      dispatch(updateUser(formattedData))
       toast.success("user updated successfully.")
       setIsEditMode(false)
-    } catch (error) {
+      } catch (error) {
       if(error instanceof Error){
         toast.error(`Error: ${error.message} `)
       }
@@ -41,7 +45,7 @@ const Profile = () => {
           :
           ( <UserInfo user={user}/> )
         }
-
+ofile.tsx to format the contactInfo data properly:
         <button className=''
           onClick={toggleEditHandler}>
           <BsPencil />
