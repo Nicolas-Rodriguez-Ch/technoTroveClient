@@ -1,5 +1,5 @@
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { FormValues } from "../../types/formInterfaces";
+import { ContactInfo, FormValues } from "../../types/formInterfaces";
 import InputField from "../inputField/InputField";
 import texts from "../../utils/texts";
 
@@ -19,7 +19,7 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
       email: "",
       password: "",
       description: "",
-      contactInfo: [{ field: "" }],
+      contactInfo: [{ field: "" } as unknown as ContactInfo ],
     },
   });
 
@@ -134,7 +134,7 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
           <button
             type="button"
             className={`${BUTTON_CLASSNAME}`}
-            onClick={() => append({ field: "" })}
+            onClick={() => append({ field: "" } as unknown as ContactInfo)}
           >
             {texts.signUpAddButton}
           </button>

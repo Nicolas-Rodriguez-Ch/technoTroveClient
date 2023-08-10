@@ -1,9 +1,12 @@
 //UserInfo.tsx
-import React from "react";
 import { FiUser } from "react-icons/fi";
 import { User } from "../../store/reducers/users/userInterfaces";
 
-function UserInfo({ user }: User) {
+interface UserInfoProps  {
+  user: User
+}
+
+function UserInfo({ user }: UserInfoProps) {
 
   if (!user) {
     return <div>Loading...</div>;

@@ -1,7 +1,7 @@
 import {
   ProjectField,
   ProjectForm as ProjectFormType,
-  ProjectImageField,
+  // ProjectImageField,
 } from "../../types/formInterfaces";
 import { useMatch } from "react-router-dom";
 import { useForm, useFieldArray } from "react-hook-form";

@@ -3,12 +3,14 @@ import { FormValues } from "../../types/formInterfaces";
 import InputField from "../inputField/InputField";
 import texts from "../../utils/texts";
 import { FiUser } from "react-icons/fi";
+import { User } from "../../store/reducers/users/userInterfaces";
 
 interface UpdatePageProps {
-  onSubmit: SubmitHandler<FormValues>;
+  submitUserUpdate: SubmitHandler<FormValues>;
+  user : User
 }
 
-const UpdateUserForm = ({submitUserUpdate, user}) => {
+const UpdateUserForm = ({submitUserUpdate, user}: UpdatePageProps) => {
   const {
     register,
     handleSubmit,
