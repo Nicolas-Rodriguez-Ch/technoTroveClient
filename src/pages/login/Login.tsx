@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { RootState, AppDispatch } from "../../store/store";
-import { loginUser } from "../../store/reducers/users/userSlice";
+import { fetchUser, loginUser } from "../../store/reducers/users/userSlice";
 import texts from "../../utils/texts";
 import { token as tknCookie } from "../../constants/cookies";
 import Cookies from "js-cookie";
@@ -45,9 +45,10 @@ const Login = () => {
       Cookies.set(tknCookie, token);
       toast.success(
         `Welcome back ${userData.fullName}, you'll soon be redirected to the Home page`
-      );
-      setTimeout(() => {
-        navigate(routePaths.home);
+        );
+        setTimeout(() => {
+          navigate(routePaths.home);
+          dispatch(fetchUser())
       }, 5750);
     }
   };
