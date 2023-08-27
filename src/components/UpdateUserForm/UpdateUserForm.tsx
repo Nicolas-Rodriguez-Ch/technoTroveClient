@@ -1,13 +1,16 @@
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { ContactInfo, FormValues } from "../../types/formInterfaces";
+import { FormValues } from "../../types/formInterfaces";
 import InputField from "../inputField/InputField";
 import texts from "../../utils/texts";
+import { FiUser } from "react-icons/fi";
+import { User } from "../../store/reducers/users/userInterfaces";
 
-interface SignupPageProps {
-  onSubmit: SubmitHandler<FormValues>;
+interface UpdatePageProps {
+  submitUserUpdate: SubmitHandler<FormValues>;
+  user : User
 }
 
-const SignUpForm = ({ onSubmit }: SignupPageProps) => {
+const UpdateUserForm = ({submitUserUpdate, user}: UpdatePageProps) => {
   const {
     register,
     handleSubmit,
@@ -15,11 +18,10 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      fullName: "",
-      email: "",
-      password: "",
-      description: "",
-      contactInfo: [{ field: "" } as unknown as ContactInfo ],
+      fullName: user.data.fullName,
+      email: user.data.email,
+      description: user.data.description,
+      contactInfo: user.data.contactInfo.map((info:string) => ({ field: info })), // Populate with the previous user's contactInfo array
     },
   });
 
@@ -30,17 +32,44 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
   const BUTTON_CLASSNAME =
     "bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-1 font-bold m-4 text-sm sm:text-base";
 
-  return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
+
+    return (
+      <form
+      onSubmit={handleSubmit(submitUserUpdate)}
       className="flex flex-col text-right gap-4 m-4 md:grid md:grid-cols-3 md:gap-6"
     >
+
+<div className="profile-picture">
+          {user && user.data.img ? (
+            <img
+              src={user.data.img}
+              alt={user.data.fullName}
+              className="w-32 h-32 rounded-full object-cover"
+            />
+          ) : (
+            <FiUser className="w-32 h-32 rounded-full object-cover" />
+          )}
+        <InputField
+          register={register}
+          id="image"
+          label={texts.signUpPFP}
+          type="file"
+          placeHolder="Update user picture"
+          accept=".png, .jpg, .jpeg"
+          rules = { {required: false}}
+          defaultValue={user.data.image}
+          errors={errors.image}
+        />
+        </div>
+
+
+
       <div className="w-full md:col-span-1">
         <InputField
           register={register}
           id="fullName"
-          label={texts.fullName}
-          placeHolder={texts.fullName}
+          label={ texts.fullName }
+          placeHolder={user.data.fullName}
           rules={{
             required: {
               value: true,
@@ -55,7 +84,7 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
           register={register}
           id="email"
           label={texts.email}
-          placeHolder={texts.email}
+          placeHolder={user.data.email || texts.email }
           type="email"
           rules={{
             required: {
@@ -66,26 +95,7 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
           errors={errors.email}
         />
       </div>
-      <div className="w-full md:col-span-1">
-        <InputField
-          register={register}
-          id="password"
-          label={texts.password}
-          placeHolder={texts.password}
-          type="password"
-          rules={{
-            required: {
-              value: true,
-              message: texts.signUpPassError,
-            },
-            pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-              message: texts.signUpErrorRegEx,
-            },
-          }}
-          errors={errors.password}
-        />
-      </div>
+
       <div className="w-full md:col-span-3">
         <InputField
           register={register}
@@ -134,7 +144,7 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
           <button
             type="button"
             className={`${BUTTON_CLASSNAME}`}
-            onClick={() => append({ field: "" } as unknown as ContactInfo)}
+            onClick={() => append({ field: "" })}
           >
             {texts.signUpAddButton}
           </button>
@@ -151,19 +161,13 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
         )}
       </div>
       <div className="w-full md:col-span-3 flex flex-col items-center">
-        <InputField
-          register={register}
-          id="image"
-          label={texts.signUpPFP}
-          type="file"
-          accept=".png, .jpg, .jpeg"
-          placeHolder={texts.signUpPFPPlaceHolder}
-        />
-        <button type="submit" className={`w-full ${BUTTON_CLASSNAME}`}>
+
+        <button type="submit" className={`w-full ${BUTTON_CLASSNAME}`} onSubmit={submitUserUpdate}>
           {texts.submit}
         </button>
       </div>
     </form>
-  );
-};
-export default SignUpForm;
+  )
+}
+
+export default UpdateUserForm

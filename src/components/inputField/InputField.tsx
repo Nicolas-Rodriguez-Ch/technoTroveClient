@@ -1,19 +1,5 @@
 import { useState } from "react";
-import { FieldError, RegisterOptions, UseFormRegister } from "react-hook-form";
-
-interface InputFieldProps {
-  register: UseFormRegister<any>;
-  id: string;
-  label: string;
-  type?: string;
-  rules?: RegisterOptions;
-  errors?: FieldError;
-  className?: string;
-  accept?: string;
-  placeHolder?: string;
-  disabled? : boolean;
-  defaultValue?: string
-}
+import { InputFieldProps } from "./types";
 
 const InputField = ({
   register,
