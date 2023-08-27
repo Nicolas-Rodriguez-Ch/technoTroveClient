@@ -5,7 +5,8 @@ const routePaths = {
   signUp: "/signup",
   allUsers: "/users",
   profile: "/profile",
-  portfolio: "/portfolio"
+  portfolio: "/portfolio",
+  editProject: "/edit-project"
 };
 
 export default routePaths;

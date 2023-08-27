@@ -1,32 +1,44 @@
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { ProjectForm } from "../../types/formInterfaces";
+import {
+  ProjectField,
+  ProjectForm as ProjectFormType,
+  // ProjectImageField,
+} from "../../types/formInterfaces";
+import { useMatch } from "react-router-dom";
+import { useForm, useFieldArray } from "react-hook-form";
 import InputField from "../inputField/InputField";
 import texts from "../../utils/texts";
-import { createProject } from "../../services/projectAPI";
-import { AppDispatch } from "../../store/store";
-import { fetchUser } from "../../store/reducers/users/userSlice";
-const NewProjectForm = () => {
-  const distpatch: AppDispatch = useDispatch();
+import routePaths from "../../constants/routePaths";
+
+interface ProjectFormProps {
+  defaultValues: ProjectFormType;
+  onSubmit: (data: ProjectFormType) => Promise<void>;
+  disabled: boolean;
+}
+const ProjectForm = ({
+  defaultValues,
+  onSubmit,
+  disabled,
+}: ProjectFormProps) => {
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
-    reset,
-  } = useForm<ProjectForm>({
+  } = useForm<ProjectFormType>({
     defaultValues: {
-      title: "",
-      description: "",
-      links: [{ field: "" }],
-      images: [{ imageField: "" }],
+      ...defaultValues,
+      links: defaultValues.links.map((link) => ({
+        field: link,
+      })) as unknown as ProjectField[],
     },
   });
+  const isEditMode = Boolean(useMatch(`${routePaths.editProject}/:id`));
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "links",
   });
+
   const {
     fields: imageFields,
     append: appendImage,
@@ -36,24 +48,10 @@ const NewProjectForm = () => {
     name: "images",
   });
 
-  const onSubmit: SubmitHandler<ProjectForm> = async (data) => {
-    try {
-      await createProject(data);
-      reset();
-      toast.success(texts.newProjectSuccess);
-      setTimeout(()=> {
-        distpatch(fetchUser());
-      }, 5750)
-    } catch (error) {
-      toast.error(texts.newProjectError);
-    }
-  };
   const BUTTON_CLASSNAME =
     "bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-2 font-bold m-4 text-sm sm:text-base rounded-md";
-
   return (
     <>
-      <ToastContainer />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="p-4 md:p-8 mx-auto flex flex-col md:flex-row md:flex-wrap justify-center items-center"
@@ -67,6 +65,7 @@ const NewProjectForm = () => {
             id="title"
             label={texts.newProjectTitle}
             placeHolder={texts.newProjectTitle}
+            disabled={disabled}
             rules={{
               required: {
                 value: true,
@@ -83,6 +82,7 @@ const NewProjectForm = () => {
             label={texts.newProjectDescription}
             type="textarea"
             placeHolder={texts.newProjectDescriptionPlaceHolder}
+            disabled={disabled}
             rules={{
               required: {
                 value: true,
@@ -101,6 +101,59 @@ const NewProjectForm = () => {
           />
         </div>
         <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 md:mb-0">
+          {defaultValues.images &&
+            defaultValues.images.map((image, index) => (
+              <div key={index} className="w-full">
+                <img
+                  src={image as unknown as string}
+                  alt={`Previously uploaded image #${index + 1}`}
+                  className="mb-4"
+                />
+              </div>
+            ))}
+          {isEditMode &&
+            imageFields.map((item, index) => (
+              <div key={item.id} className="w-full">
+                <InputField
+                  register={register}
+                  id={`images[${index}].imageField`}
+                  label={`${texts.newProjectImage} #${index + 1}`}
+                  disabled={disabled}
+                  type="file"
+                  placeHolder={texts.newProjectImagePlaceHolder}
+                  rules={{
+                    required: false,
+                  }}
+                  defaultValue={
+                    defaultValues.images[index] as unknown as string
+                  }
+                  errors={errors.images && errors.images[index]?.imageField}
+                  accept=".png, .jpg, .jpeg"
+                />
+                {index === imageFields.length - 1 && (
+                  <div className="flex justify-center">
+                    <button
+                      type="button"
+                      className={`${BUTTON_CLASSNAME}`}
+                      onClick={() => appendImage({ imageField: "" })}
+                    >
+                      {texts.newProjectImageAdd}
+                    </button>
+                    {imageFields.length > 1 && (
+                      <button
+                        type="button"
+                        className={`${BUTTON_CLASSNAME}`}
+                        onClick={() => removeImage(index)}
+                      >
+                        {texts.remove}
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+        </div>
+        <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 md:mb-0">
           {fields.map((item, index) => (
             <div key={item.id} className="w-full">
               <InputField
@@ -108,6 +161,7 @@ const NewProjectForm = () => {
                 id={`links[${index}].field`}
                 label={`${texts.newProjectLink} #${index + 1}`}
                 placeHolder={texts.newProjectLinkPlaceHolder}
+                disabled={disabled}
                 rules={{
                   required: {
                     value: true,
@@ -115,17 +169,20 @@ const NewProjectForm = () => {
                   },
                 }}
                 errors={errors.links && errors.links[index]?.field}
+                defaultValue={item.field}
               />
               {index === fields.length - 1 && (
                 <div className="flex justify-center">
-                  <button
-                    type="button"
-                    className={`${BUTTON_CLASSNAME}`}
-                    onClick={() => append({ field: "" })}
-                  >
-                    {texts.newProjectAddLink}
-                  </button>
-                  {fields.length > 1 && (
+                  {isEditMode && (
+                    <button
+                      type="button"
+                      className={`${BUTTON_CLASSNAME}`}
+                      onClick={() => append({ field: "" })}
+                    >
+                      {texts.newProjectAddLink}
+                    </button>
+                  )}
+                  {isEditMode && fields.length > 1 && (
                     <button
                       type="button"
                       className={`${BUTTON_CLASSNAME}`}
@@ -139,55 +196,14 @@ const NewProjectForm = () => {
             </div>
           ))}
         </div>
-        <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 md:mb-0">
-          {imageFields.map((item, index) => (
-            <div key={item.id} className="w-full">
-              <InputField
-                register={register}
-                id={`images[${index}].imageField`}
-                label={`${texts.newProjectImage} #${index + 1}`}
-                type="file"
-                placeHolder={texts.newProjectImagePlaceHolder}
-                rules={{
-                  required: {
-                    value: true,
-                    message: texts.newProjectImageError,
-                  },
-                }}
-                errors={errors.images && errors.images[index]?.imageField}
-                accept=".png, .jpg, .jpeg"
-              />
-              {index === imageFields.length - 1 && (
-                <div className="flex justify-center">
-                  <button
-                    type="button"
-                    className={`${BUTTON_CLASSNAME}`}
-                    onClick={() => appendImage({ imageField: "" })}
-                  >
-                    {texts.newProjectImageAdd}
-                  </button>
-                  {imageFields.length > 1 && (
-                    <button
-                      type="button"
-                      className={`${BUTTON_CLASSNAME}`}
-                      onClick={() => removeImage(index)}
-                    >
-                      {texts.remove}
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        <div className="w-full flex justify-center mt-4">
+        {isEditMode && (
           <button type="submit" className={`${BUTTON_CLASSNAME}`}>
             {texts.submit}
           </button>
-        </div>
+        )}
       </form>
     </>
   );
 };
 
-export default NewProjectForm;
+export default ProjectForm;
