@@ -11,6 +11,8 @@ interface InputFieldProps {
   className?: string;
   accept?: string;
   placeHolder?: string;
+  disabled? : boolean;
+  defaultValue?: string
 }
 
 const InputField = ({
@@ -20,7 +22,6 @@ const InputField = ({
   type = "text",
   rules,
   errors,
-  className = "p-2 m-2 text-custom-black rounded-md",
   className = "p-2 m-2 text-custom-black rounded-md",
   accept,
   placeHolder,
