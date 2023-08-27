@@ -13,6 +13,7 @@ import { AppDispatch } from "./store/store";
 import AllUsers from "./pages/allUsers/AllUsers";
 import Portfolio from "./pages/portfolio/Portfolio";
 import EditProject from "./pages/editProject/EditProject";
+import EditProject from "./pages/editProject/EditProject";
 import Cookies from "js-cookie";
 import { token as tknCookie } from "./constants/cookies";
 import Profile from "./pages/Profile/Profile";
@@ -43,6 +44,10 @@ function App() {
           element={<EditProject />}
         />
         <Route path={routePaths.profile} element={<Profile />} />
+        <Route
+          path={`${routePaths.editProject}/:id`}
+          element={<EditProject />}
+        />
       </Routes>
       <Footer />
     </main>
