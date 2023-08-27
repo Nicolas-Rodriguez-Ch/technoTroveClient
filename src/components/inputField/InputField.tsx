@@ -1,5 +1,17 @@
 import { useState } from "react";
-import { InputFieldProps } from "./types";
+import { FieldError, RegisterOptions, UseFormRegister } from "react-hook-form";
+
+interface InputFieldProps {
+  register: UseFormRegister<any>;
+  id: string;
+  label: string;
+  type?: string;
+  rules?: RegisterOptions;
+  errors?: FieldError;
+  className?: string;
+  accept?: string;
+  placeHolder?: string;
+}
 
 const InputField = ({
   register,
@@ -8,6 +20,7 @@ const InputField = ({
   type = "text",
   rules,
   errors,
+  className = "p-2 m-2 text-custom-black rounded-md",
   className = "p-2 m-2 text-custom-black rounded-md",
   accept,
   placeHolder,
