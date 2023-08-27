@@ -63,3 +63,38 @@ export const getProjectById = async (id: string) => {
   const data = await response.json();
   return data;
 };
+
+export const updateProject = async (id: string, body: ProjectForm) => {
+  const formData = new FormData();
+  const token = Cookies.get(tknCookie);
+  Object.entries(body).forEach(([key, value]) => {
+    if (value) {
+      if (key === "links" && Array.isArray(value)) {
+        const projectLinksArr = value.map((item) => item.field).join(", ");
+        formData.append(key, projectLinksArr);
+      } else if (key === "images" && Array.isArray(value)) {
+        value.forEach((imageObj: { imageField: FileList }) => {
+          Array.from(imageObj.imageField).forEach((file) => {
+            formData.append("file", file);
+          });
+        });
+      } else if (typeof value === "string") {
+        formData.append(key, value);
+      }
+    }
+  });
+  const response = await fetch(`${API_URL}projects/${id}`, {
+    method: "PUT",
+    body: formData,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Server responded with a non-200 status code");
+  }
+
+  const data = await response.json();
+  return data;
+};

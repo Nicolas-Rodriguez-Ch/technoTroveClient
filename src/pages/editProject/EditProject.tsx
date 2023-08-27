@@ -1,7 +1,7 @@
 // EditProject component
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getProjectById } from "../../services/projectAPI";
+import { getProjectById, updateProject } from "../../services/projectAPI";
 import { ToastContainer, toast } from "react-toastify";
 import ProjectForm from "../../components/projectForm/ProjectForm";
 import { ProjectForm as ProjectFormType } from "../../types/formInterfaces";
@@ -29,7 +29,10 @@ const EditProject = () => {
 
   const handleSubmit = async (data: ProjectFormType) => {
     try {
-      console.log("🚀 ~ file: EditProject.tsx:31 ~ handleSubmit ~ data:", data)
+      if (id) {
+        await updateProject(id, data);
+        toast.success("Project updates successfully");
+      }
     } catch (error) {
       if (error instanceof Error) {
         toast.error(`Error: ${error.message}`);
