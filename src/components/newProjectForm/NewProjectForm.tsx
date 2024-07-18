@@ -8,7 +8,7 @@ import { createProject } from '../../services/projectAPI';
 import { AppDispatch } from '../../store/store';
 import { fetchUser } from '../../store/reducers/users/userSlice';
 const NewProjectForm = () => {
-  const distpatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -41,9 +41,9 @@ const NewProjectForm = () => {
       await createProject(data);
       reset();
       toast.success(texts.newProjectSuccess);
-      setTimeout(()=> {
-        distpatch(fetchUser());
-      }, 5750)
+      setTimeout(() => {
+        dispatch(fetchUser());
+      }, 5750);
     } catch (error) {
       toast.error(texts.newProjectError);
     }

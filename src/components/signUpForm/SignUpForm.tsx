@@ -78,7 +78,7 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
               message: texts.signUpPassError,
             },
             pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,}$/,
               message: texts.signUpErrorRegEx,
             },
           }}

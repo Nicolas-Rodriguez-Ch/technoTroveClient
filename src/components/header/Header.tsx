@@ -1,16 +1,15 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { CgProfile } from 'react-icons/cg';
-import { isLogged, token } from '../../constants/cookies';
 import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import routePaths from '../../constants/routePaths';
 import { banner } from '../../assets/images';
-import { User } from '../../store/reducers/users/userInterfaces';
 import { logoutUser } from '../../store/reducers/users/userSlice';
 import texts from '../../utils/texts';
+import { isLogged, token } from '../../constants/cookies';
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -40,7 +39,7 @@ const Header = () => {
     navigate(routePaths.login);
   };
 
-  const user = useSelector((state: RootState) => state.user.data as User);
+  const user = useSelector((state: RootState) => state.user.data?.data);
   const status = useSelector((state: RootState) => state.user.status);
   const linkStyles =
     'block px-4 py-3 text-sm text-custom-mint border-b border-custom-mint hover:bg-custom-mint hover:text-custom-black w-full text-left font-semibold';
@@ -65,11 +64,11 @@ const Header = () => {
         onClick={menuClick}
         ref={menuRef}
       >
-        {user && user.data && user.data.profilePicture ? (
+        {user?.profilePicture ? (
           <img
             className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover"
-            src={user.data.profilePicture}
-            alt={user.data.fullName}
+            src={user.profilePicture}
+            alt={user.fullName}
           />
         ) : (
           user && <CgProfile size={50} />
@@ -114,4 +113,6 @@ const Header = () => {
   );
 };
 
-export default Header;
+const MemoizedHeaderComponent = memo(Header);
+
+export default MemoizedHeaderComponent;
