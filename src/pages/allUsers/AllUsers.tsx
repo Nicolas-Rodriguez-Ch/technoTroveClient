@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import { getAllUsers } from '../../services/userAPI';
-import UserPreview from '../../components/userPreview/UserPreview';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import UserPreview from '../../components/userPreview/UserPreview';
 interface User {
   id: string;
   fullName: string;

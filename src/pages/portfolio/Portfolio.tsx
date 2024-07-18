@@ -1,8 +1,8 @@
-import PortfolioCard from '../../components/portfolioCard/PortfolioCard';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import texts from '../../utils/texts';
+import { useSelector } from 'react-redux';
 import NewProjectForm from '../../components/newProjectForm/NewProjectForm';
+import PortfolioCard from '../../components/portfolioCard/PortfolioCard';
+import texts from '../../utils/texts';
 
 const Portfolio = () => {
   const { status, data: user } = useSelector((state: RootState) => state.user);

@@ -1,12 +1,12 @@
-import { useForm, useFieldArray, SubmitHandler } from 'react-hook-form';
-import { ToastContainer, toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { createProject } from '../../services/projectAPI';
+import { fetchUser } from '../../store/reducers/users/userSlice';
 import { ProjectForm } from '../../types/formInterfaces';
+import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+import { toast, ToastContainer } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import InputField from '../inputField/InputField';
 import texts from '../../utils/texts';
-import { createProject } from '../../services/projectAPI';
-import { AppDispatch } from '../../store/store';
-import { fetchUser } from '../../store/reducers/users/userSlice';
 const NewProjectForm = () => {
   const dispatch: AppDispatch = useDispatch();
   const {

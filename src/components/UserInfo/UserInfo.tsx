@@ -1,4 +1,3 @@
-//UserInfo.tsx
 import { FiUser } from 'react-icons/fi';
 import { User } from '../../store/reducers/users/userInterfaces';
 

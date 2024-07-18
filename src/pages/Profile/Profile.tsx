@@ -1,13 +1,12 @@
-//Profile.tsx
-import { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
-import { BsPencil } from 'react-icons/bs';
 import { AppDispatch, RootState } from '../../store/store';
-import { useSelector ,useDispatch } from 'react-redux';
+import { BsPencil } from 'react-icons/bs';
+import { toast, ToastContainer } from 'react-toastify';
 import { updateUser } from '../../store/reducers/users/userSlice';
-import UserInfo from '../../components/UserInfo/UserInfo'
-import UpdateUserForm from '../../components/UpdateUserForm/UpdateUserForm';
+import { useDispatch ,useSelector } from 'react-redux';
 import { User } from '../../store/reducers/users/userInterfaces';
+import { useState } from 'react'
+import UpdateUserForm from '../../components/UpdateUserForm/UpdateUserForm';
+import UserInfo from '../../components/UserInfo/UserInfo'
 
 const Profile = () => {
   const dispatch: AppDispatch = useDispatch()

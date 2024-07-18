@@ -1,5 +1,5 @@
-import { useForm, useFieldArray, SubmitHandler } from 'react-hook-form';
 import { FormValues } from '../../types/formInterfaces';
+import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import InputField from '../inputField/InputField';
 import texts from '../../utils/texts';
 

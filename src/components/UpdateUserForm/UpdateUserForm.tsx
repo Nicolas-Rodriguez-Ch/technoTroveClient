@@ -1,9 +1,9 @@
-import { useForm, useFieldArray, SubmitHandler } from 'react-hook-form';
+import { FiUser } from 'react-icons/fi';
 import { FormValues } from '../../types/formInterfaces';
+import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+import { User } from '../../store/reducers/users/userInterfaces';
 import InputField from '../inputField/InputField';
 import texts from '../../utils/texts';
-import { FiUser } from 'react-icons/fi';
-import { User } from '../../store/reducers/users/userInterfaces';
 
 interface UpdatePageProps {
   submitUserUpdate: SubmitHandler<FormValues>;

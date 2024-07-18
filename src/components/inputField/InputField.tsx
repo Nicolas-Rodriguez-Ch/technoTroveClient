@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { InputFieldProps } from './types';
+import { useState } from 'react';
 
 const InputField = ({
   register,

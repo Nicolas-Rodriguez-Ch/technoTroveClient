@@ -1,7 +1,7 @@
-import Cookies from 'js-cookie';
-import { token as tknCookie } from '../constants/cookies';
 import { API_URL } from '../constants/apiURL';
 import { ProjectForm } from '../types/formInterfaces';
+import { token as tknCookie } from '../constants/cookies';
+import Cookies from 'js-cookie';
 
 export const createProject = async (project: ProjectForm) => {
   const formData = new FormData();

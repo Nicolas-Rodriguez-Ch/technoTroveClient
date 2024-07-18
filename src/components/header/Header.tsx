@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef } from 'react';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import Cookies from 'js-cookie';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import routePaths from '../../constants/routePaths';
 import { banner } from '../../assets/images';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { Link, useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../store/reducers/users/userSlice';
 import { token } from '../../constants/cookies';
-import MemoizedProfilePictureComponent from '../ProfilePicture/ProfilePicture';
+import { useDispatch } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+import Cookies from 'js-cookie';
 import MemoizedDropdownMenuComponent from '../DropdownMenuComponent/DropdownMenuComponent';
+import MemoizedProfilePictureComponent from '../ProfilePicture/ProfilePicture';
+import routePaths from '../../constants/routePaths';
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);

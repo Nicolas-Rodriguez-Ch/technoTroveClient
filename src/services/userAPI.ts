@@ -1,8 +1,8 @@
-import Cookies from 'js-cookie';
-import { LoginResponse, User } from '../store/reducers/users/userInterfaces';
-import { token as tknCookie } from '../constants/cookies';
 import { API_URL, AUTH_URL } from '../constants/apiURL';
 import { FormValues } from '../types/formInterfaces';
+import { LoginResponse, User } from '../store/reducers/users/userInterfaces';
+import { token as tknCookie } from '../constants/cookies';
+import Cookies from 'js-cookie';
 
 export const createUser = async (user: FormValues) => {
   const formData = new FormData();

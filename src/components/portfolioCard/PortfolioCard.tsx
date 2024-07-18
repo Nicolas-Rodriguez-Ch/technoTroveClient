@@ -1,7 +1,7 @@
-import { useRef, useState, useEffect } from 'react';
-import { BsPlus } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
+import { BsPlus } from 'react-icons/bs';
 import { Project } from '../../store/reducers/users/userInterfaces';
+import { useEffect, useRef, useState } from 'react';
 import ProjectCard from '../projectCard/ProjectCard';
 import texts from '../../utils/texts';
 

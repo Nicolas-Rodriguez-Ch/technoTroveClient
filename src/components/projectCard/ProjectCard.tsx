@@ -1,11 +1,11 @@
-import { deleteProject } from '../../services/projectAPI';
-import texts from '../../utils/texts';
-import { ToastContainer, toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
+import { deleteProject } from '../../services/projectAPI';
 import { fetchUser } from '../../store/reducers/users/userSlice';
 import { Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import routePaths from '../../constants/routePaths';
+import texts from '../../utils/texts';
 
 interface ProjectCardProps {
   image: string;

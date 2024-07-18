@@ -1,8 +1,8 @@
-import { memo } from 'react';
-import { Link } from 'react-router-dom';
-import texts from '../../utils/texts';
-import routePaths from '../../constants/routePaths';
 import { isLogged } from '../../constants/cookies';
+import { Link } from 'react-router-dom';
+import { memo } from 'react';
+import routePaths from '../../constants/routePaths';
+import texts from '../../utils/texts';
 
 const DropdownMenu = ({
   logOut,

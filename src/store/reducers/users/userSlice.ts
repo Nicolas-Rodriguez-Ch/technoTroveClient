@@ -1,13 +1,13 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { handleReduxError } from '../../../utils/errorHandling';
 
-import { LoginResponse, User, UserState } from './userInterfaces';
 import {
   authenticateUser,
+  deleteUserAsync,
   getUser,
   updateUserAsync,
-  deleteUserAsync,
 } from '../../../services/userAPI';
+import { LoginResponse, User, UserState } from './userInterfaces';
 
 const initialState: UserState = {
   data: null,

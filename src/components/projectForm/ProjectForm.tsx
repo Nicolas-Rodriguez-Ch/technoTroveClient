@@ -3,11 +3,11 @@ import {
   ProjectForm as ProjectFormType,
   // ProjectImageField,
 } from '../../types/formInterfaces';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { useMatch } from 'react-router-dom';
-import { useForm, useFieldArray } from 'react-hook-form';
 import InputField from '../inputField/InputField';
-import texts from '../../utils/texts';
 import routePaths from '../../constants/routePaths';
+import texts from '../../utils/texts';
 
 interface ProjectFormProps {
   defaultValues: ProjectFormType;

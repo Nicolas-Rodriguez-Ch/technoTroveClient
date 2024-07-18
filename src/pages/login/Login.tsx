@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import { RootState, AppDispatch } from '../../store/store';
-import { fetchUser, loginUser } from '../../store/reducers/users/userSlice';
-import texts from '../../utils/texts';
-import { token as tknCookie } from '../../constants/cookies';
-import Cookies from 'js-cookie';
 import 'react-toastify/dist/ReactToastify.css';
-import routePaths from '../../constants/routePaths';
+import { AppDispatch, RootState } from '../../store/store';
+import { fetchUser, loginUser } from '../../store/reducers/users/userSlice';
+import { Link } from 'react-router-dom';
 import { LoginResponse } from '../../store/reducers/users/userInterfaces';
+import { SubmitHandler } from 'react-hook-form';
+import { token as tknCookie } from '../../constants/cookies';
+import { toast, ToastContainer } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import Cookies from 'js-cookie';
 import LoginForm from '../../components/loginForm/LoginForm';
+import routePaths from '../../constants/routePaths';
+import texts from '../../utils/texts';
 
 interface Credentials {
   email: string;
