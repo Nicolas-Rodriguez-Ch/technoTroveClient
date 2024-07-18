@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef, memo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { CgProfile } from 'react-icons/cg';
 import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch, RootState } from '../../store/store';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
 import routePaths from '../../constants/routePaths';
 import { banner } from '../../assets/images';
 import { logoutUser } from '../../store/reducers/users/userSlice';
-import texts from '../../utils/texts';
-import { isLogged, token } from '../../constants/cookies';
+import { token } from '../../constants/cookies';
+import MemoizedProfilePictureComponent from '../ProfilePicture/ProfilePicture';
+import MemoizedDropdownMenuComponent from '../DropdownMenuComponent/DropdownMenuComponent';
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -39,14 +39,8 @@ const Header = () => {
     navigate(routePaths.login);
   };
 
-  const user = useSelector((state: RootState) => state.user.data?.data);
-  const status = useSelector((state: RootState) => state.user.status);
   const linkStyles =
     'block px-4 py-3 text-sm text-custom-mint border-b border-custom-mint hover:bg-custom-mint hover:text-custom-black w-full text-left font-semibold';
-
-  if (status === 'loading') {
-    return <div>Loading...</div>;
-  }
 
   return (
     <main className="bg-custom-blue text-custom-mint p-4 flex justify-between items-center">
@@ -64,55 +58,26 @@ const Header = () => {
         onClick={menuClick}
         ref={menuRef}
       >
-        {user?.profilePicture ? (
-          <img
-            className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover"
-            src={user.profilePicture}
-            alt={user.fullName}
-          />
-        ) : (
-          user && <CgProfile size={50} />
-        )}
-        {!user && <GiHamburgerMenu size={50} />}
+        <div className="hidden md:block">
+          <MemoizedProfilePictureComponent />
+        </div>
+        <div className="block md:hidden">
+          <GiHamburgerMenu size={50} />
+        </div>
         <div
           className={`absolute right-0 top-full mt-2 w-64 md:w-72 rounded-md shadow-lg py-2 bg-custom-blue border border-custom-mint ring-opacity-5 transition-transform duration-200 ease-in-out transform origin-top ${
             showMenu ? 'scale-y-100' : 'scale-y-0'
           }`}
           style={{ transformOrigin: 'right top' }}
         >
-          <>
-            <Link to={routePaths.allUsers} className={linkStyles}>
-              {texts.menuAllUsers}
-            </Link>
-            {isLogged() ? (
-              <>
-                <Link to={routePaths.profile} className={linkStyles}>
-                  {texts.profile}
-                </Link>
-                <Link to={routePaths.portfolio} className={linkStyles}>
-                  {texts.portfolio}
-                </Link>
-                <button onClick={logOut} className={linkStyles}>
-                  {texts.logout}
-                </button>
-              </>
-            ) : (
-              <>
-                <Link to={routePaths.login} className={linkStyles}>
-                  {texts.login}
-                </Link>
-                <Link to={routePaths.signUp} className={linkStyles}>
-                  {texts.signup}
-                </Link>
-              </>
-            )}
-          </>
+          <MemoizedDropdownMenuComponent
+            logOut={logOut}
+            linkStyles={linkStyles}
+          />
         </div>
       </section>
     </main>
   );
 };
 
-const MemoizedHeaderComponent = memo(Header);
-
-export default MemoizedHeaderComponent;
+export default Header;
