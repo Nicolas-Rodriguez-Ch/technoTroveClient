@@ -1,23 +1,23 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { handleReduxError } from "../../../utils/errorHandling";
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { handleReduxError } from '../../../utils/errorHandling';
 
-import { LoginResponse, User, UserState } from "./userInterfaces";
+import { LoginResponse, User, UserState } from './userInterfaces';
 import {
   authenticateUser,
   getUser,
   updateUserAsync,
   deleteUserAsync,
-} from "../../../services/userAPI";
+} from '../../../services/userAPI';
 
 const initialState: UserState = {
   data: null,
-  status: "idle",
+  status: 'idle',
   error: null,
   deleted: false,
 };
 
 export const loginUser = createAsyncThunk(
-  "user/loginUser",
+  'user/loginUser',
   async (
     credentials: { email: string; password: string },
     { rejectWithValue }
@@ -33,12 +33,12 @@ export const loginUser = createAsyncThunk(
 
 // get the user from the API
 export const fetchUser = createAsyncThunk(
-  "user/fetchUser",
+  'user/fetchUser',
   async (_, { rejectWithValue }) => {
     try {
       const response = await getUser();
       if (!response.ok) {
-        throw new Error("Server responded with a non-200 status code");
+        throw new Error('Server responded with a non-200 status code');
       }
       const data: User = await response.json();
       return data;
@@ -50,7 +50,7 @@ export const fetchUser = createAsyncThunk(
 
 // Updates the user
 export const updateUser = createAsyncThunk(
-  "user/updateUser",
+  'user/updateUser',
   async (user: FormData, { rejectWithValue }) => {
     try {
       const data: User = await updateUserAsync(user);
@@ -62,7 +62,7 @@ export const updateUser = createAsyncThunk(
 );
 
 export const deleteUser = createAsyncThunk(
-  "user/deleteUser",
+  'user/deleteUser',
   async (_, { rejectWithValue }) => {
     try {
       await deleteUserAsync();
@@ -75,7 +75,7 @@ export const deleteUser = createAsyncThunk(
 
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     logoutUser: () => initialState,
@@ -83,60 +83,60 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading';
       })
       .addCase(
         loginUser.fulfilled,
         (state, action: PayloadAction<LoginResponse>) => {
-          state.status = "succeeded";
+          state.status = 'succeeded';
           state.data = action.payload;
         }
       )
       .addCase(loginUser.rejected, (state, action) => {
-        state.status = "failed";
+        state.status = 'failed';
         state.error = action.payload
           ? handleReduxError(action.payload)
-          : "Unknown error occurred";
+          : 'Unknown error occurred';
       })
       .addCase(fetchUser.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading';
       })
       .addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
-        state.status = "succeeded";
+        state.status = 'succeeded';
         state.data = action.payload;
       })
       .addCase(fetchUser.rejected, (state, action) => {
-        state.status = "failed";
+        state.status = 'failed';
         state.error = action.payload
           ? handleReduxError(action.payload)
-          : "Unknown error occurred";
+          : 'Unknown error occurred';
       })
       .addCase(updateUser.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading';
       })
       .addCase(updateUser.fulfilled, (state, action: PayloadAction<User>) => {
-        state.status = "succeeded";
+        state.status = 'succeeded';
         state.data = action.payload;
       })
       .addCase(updateUser.rejected, (state, action) => {
-        state.status = "failed";
+        state.status = 'failed';
         state.error = action.payload
           ? handleReduxError(action.payload)
-          : "Unknown error occurred";
+          : 'Unknown error occurred';
       })
       .addCase(deleteUser.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading';
       })
       .addCase(deleteUser.fulfilled, (state) => {
-        state.status = "succeeded";
+        state.status = 'succeeded';
         state.data = null;
         state.deleted = true;
       })
       .addCase(deleteUser.rejected, (state, action) => {
-        state.status = "failed";
+        state.status = 'failed';
         state.error = action.payload
           ? handleReduxError(action.payload)
-          : "Unknown error occurred";
+          : 'Unknown error occurred';
       });
   },
 });

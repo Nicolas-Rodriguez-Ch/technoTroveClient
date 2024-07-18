@@ -1,7 +1,7 @@
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { ContactInfo, FormValues } from "../../types/formInterfaces";
-import InputField from "../inputField/InputField";
-import texts from "../../utils/texts";
+import { useForm, useFieldArray, SubmitHandler } from 'react-hook-form';
+import { FormValues } from '../../types/formInterfaces';
+import InputField from '../inputField/InputField';
+import texts from '../../utils/texts';
 
 interface SignupPageProps {
   onSubmit: SubmitHandler<FormValues>;
@@ -15,21 +15,20 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      fullName: "",
-      email: "",
-      password: "",
-      description: "",
-      contactInfo: [{ field: "" } as unknown as ContactInfo ],
+      fullName: '',
+      email: '',
+      password: '',
+      description: '',
+      contactInfo: [{ field: '' }],
     },
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "contactInfo",
+    name: 'contactInfo',
   });
   const BUTTON_CLASSNAME =
-    "bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-1 font-bold m-4 text-sm sm:text-base";
-
+    'bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-1 font-bold m-4 text-sm sm:text-base';
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -124,7 +123,10 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
                 message: texts.signUpContactInfoError,
               },
             }}
-            errors={errors.contactInfo && errors.contactInfo[index]?.field}
+            errors={
+              errors.contactInfo &&
+              (errors.contactInfo[index] as { field?: any })?.field
+            }
           />
         </div>
       ))}
@@ -134,7 +136,7 @@ const SignUpForm = ({ onSubmit }: SignupPageProps) => {
           <button
             type="button"
             className={`${BUTTON_CLASSNAME}`}
-            onClick={() => append({ field: "" } as unknown as ContactInfo)}
+            onClick={() => append({ field: '' })}
           >
             {texts.signUpAddButton}
           </button>

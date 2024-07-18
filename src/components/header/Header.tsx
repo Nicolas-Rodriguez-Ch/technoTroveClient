@@ -1,16 +1,16 @@
-import { useState, useEffect, useRef } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { CgProfile } from "react-icons/cg";
-import { isLogged, token } from "../../constants/cookies";
-import Cookies from "js-cookie";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
-import routePaths from "../../constants/routePaths";
-import { banner } from "../../assets/images";
-import { User } from "../../store/reducers/users/userInterfaces";
-import { logoutUser } from "../../store/reducers/users/userSlice";
-import texts from "../../utils/texts";
+import { useState, useEffect, useRef } from 'react';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { CgProfile } from 'react-icons/cg';
+import { isLogged, token } from '../../constants/cookies';
+import Cookies from 'js-cookie';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import routePaths from '../../constants/routePaths';
+import { banner } from '../../assets/images';
+import { User } from '../../store/reducers/users/userInterfaces';
+import { logoutUser } from '../../store/reducers/users/userSlice';
+import texts from '../../utils/texts';
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -24,9 +24,9 @@ const Header = () => {
         setShowMenu(false);
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -43,9 +43,9 @@ const Header = () => {
   const user = useSelector((state: RootState) => state.user.data as User);
   const status = useSelector((state: RootState) => state.user.status);
   const linkStyles =
-    "block px-4 py-3 text-sm text-custom-mint border-b border-custom-mint hover:bg-custom-mint hover:text-custom-black w-full text-left font-semibold";
+    'block px-4 py-3 text-sm text-custom-mint border-b border-custom-mint hover:bg-custom-mint hover:text-custom-black w-full text-left font-semibold';
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return <div>Loading...</div>;
   }
 
@@ -77,9 +77,9 @@ const Header = () => {
         {!user && <GiHamburgerMenu size={50} />}
         <div
           className={`absolute right-0 top-full mt-2 w-64 md:w-72 rounded-md shadow-lg py-2 bg-custom-blue border border-custom-mint ring-opacity-5 transition-transform duration-200 ease-in-out transform origin-top ${
-            showMenu ? "scale-y-100" : "scale-y-0"
+            showMenu ? 'scale-y-100' : 'scale-y-0'
           }`}
-          style={{ transformOrigin: "right top" }}
+          style={{ transformOrigin: 'right top' }}
         >
           <>
             <Link to={routePaths.allUsers} className={linkStyles}>

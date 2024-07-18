@@ -1,5 +1,5 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import texts from "../../utils/texts";
+import { useForm, SubmitHandler } from 'react-hook-form';
+import texts from '../../utils/texts';
 interface Credentials {
   email: string;
   password: string;
@@ -15,8 +15,8 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
     formState: { errors },
   } = useForm<Credentials>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
@@ -28,7 +28,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
       <label htmlFor="email">{texts.email}</label>
       <input
         className="p-1 text-custom-black"
-        {...register("email", { required: texts.loginError })}
+        {...register('email', { required: texts.loginError })}
         type="email"
         placeholder={texts.email}
         id="email"
@@ -37,7 +37,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
       <label htmlFor="password">{texts.password}</label>
       <input
         className="p-1 text-custom-black"
-        {...register("password", { required: texts.loginError })}
+        {...register('password', { required: texts.loginError })}
         type="password"
         placeholder={texts.password}
         id="password"

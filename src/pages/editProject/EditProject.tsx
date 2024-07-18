@@ -1,11 +1,11 @@
 // EditProject component
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getProjectById, updateProject } from "../../services/projectAPI";
-import { ToastContainer, toast } from "react-toastify";
-import ProjectForm from "../../components/projectForm/ProjectForm";
-import { ProjectForm as ProjectFormType } from "../../types/formInterfaces";
-import texts from "../../utils/texts";
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { getProjectById, updateProject } from '../../services/projectAPI';
+import { ToastContainer, toast } from 'react-toastify';
+import ProjectForm from '../../components/projectForm/ProjectForm';
+import { ProjectForm as ProjectFormType } from '../../types/formInterfaces';
+import texts from '../../utils/texts';
 
 const EditProject = () => {
   const { id } = useParams<string>();
@@ -31,7 +31,7 @@ const EditProject = () => {
     try {
       if (id) {
         await updateProject(id, data);
-        toast.success("Project updates successfully");
+        toast.success('Project updates successfully');
       }
     } catch (error) {
       if (error instanceof Error) {

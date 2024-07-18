@@ -1,16 +1,17 @@
-import { SubmitHandler } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
-import SignUpForm from "../../components/signUpForm/SignUpForm";
-import { FormValues } from "../../types/formInterfaces";
-import { createUser } from "../../services/userAPI";
-import texts from "../../utils/texts";
-import { Link } from "react-router-dom";
-import routePaths from "../../constants/routePaths";
-import { useNavigate } from "react-router-dom";
+import { SubmitHandler } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
+import SignUpForm from '../../components/signUpForm/SignUpForm';
+import { FormValues } from '../../types/formInterfaces';
+import { createUser } from '../../services/userAPI';
+import texts from '../../utils/texts';
+import { Link } from 'react-router-dom';
+import routePaths from '../../constants/routePaths';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    console.log('🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ data:', data)
     try {
       await createUser(data);
       toast.success(texts.signUpSuccess);

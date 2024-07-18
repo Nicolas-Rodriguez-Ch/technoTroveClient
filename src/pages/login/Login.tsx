@@ -1,18 +1,18 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import { RootState, AppDispatch } from "../../store/store";
-import { fetchUser, loginUser } from "../../store/reducers/users/userSlice";
-import texts from "../../utils/texts";
-import { token as tknCookie } from "../../constants/cookies";
-import Cookies from "js-cookie";
-import "react-toastify/dist/ReactToastify.css";
-import routePaths from "../../constants/routePaths";
-import { LoginResponse } from "../../store/reducers/users/userInterfaces";
-import LoginForm from "../../components/loginForm/LoginForm";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import { RootState, AppDispatch } from '../../store/store';
+import { fetchUser, loginUser } from '../../store/reducers/users/userSlice';
+import texts from '../../utils/texts';
+import { token as tknCookie } from '../../constants/cookies';
+import Cookies from 'js-cookie';
+import 'react-toastify/dist/ReactToastify.css';
+import routePaths from '../../constants/routePaths';
+import { LoginResponse } from '../../store/reducers/users/userInterfaces';
+import LoginForm from '../../components/loginForm/LoginForm';
 
 interface Credentials {
   email: string;
@@ -40,7 +40,7 @@ const Login = () => {
     data: LoginResponse | null,
     navigate: (path: string) => void
   ) => {
-    if (status === "succeeded" && data) {
+    if (status === 'succeeded' && data) {
       const { token, data: userData } = data;
       Cookies.set(tknCookie, token);
       toast.success(
@@ -54,7 +54,7 @@ const Login = () => {
   };
 
   const handleFailedLogin = (status: string, error: string | null) => {
-    if (status === "failed" && error) {
+    if (status === 'failed' && error) {
       toast.error(`Log in failed: ${error}`);
     }
   };

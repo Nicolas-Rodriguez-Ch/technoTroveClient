@@ -1,9 +1,9 @@
 //Profile.tsx
 import { useState } from 'react'
-import { ToastContainer, toast } from "react-toastify";
-import { BsPencil } from "react-icons/bs";
-import { AppDispatch, RootState } from "../../store/store";
-import { useSelector ,useDispatch } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import { BsPencil } from 'react-icons/bs';
+import { AppDispatch, RootState } from '../../store/store';
+import { useSelector ,useDispatch } from 'react-redux';
 import { updateUser } from '../../store/reducers/users/userSlice';
 import UserInfo from '../../components/UserInfo/UserInfo'
 import UpdateUserForm from '../../components/UpdateUserForm/UpdateUserForm';
@@ -28,7 +28,7 @@ const Profile = () => {
       dispatch(updateUser(formattedData))
       const response = await dispatch(updateUser(data));
       if(response){
-        toast.success("user updated successfully.")
+        toast.success('user updated successfully.')
         setIsEditMode(false)}
       } catch (error) {
       if(error instanceof Error){

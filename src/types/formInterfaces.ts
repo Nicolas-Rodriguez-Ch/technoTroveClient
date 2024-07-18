@@ -1,8 +1,9 @@
 // export interface ContactInfo {
 //   field: string;
 // }
-export type ContactInfo = string[]
-
+export interface ContactInfo {
+  field: string;
+}
 export interface FormValues {
   fullName: string;
   email: string;

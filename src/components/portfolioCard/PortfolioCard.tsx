@@ -1,9 +1,9 @@
-import { useRef, useState, useEffect } from "react";
-import { BsPlus } from "react-icons/bs";
-import { BiMinus } from "react-icons/bi";
-import { Project } from "../../store/reducers/users/userInterfaces";
-import ProjectCard from "../projectCard/ProjectCard";
-import texts from "../../utils/texts";
+import { useRef, useState, useEffect } from 'react';
+import { BsPlus } from 'react-icons/bs';
+import { BiMinus } from 'react-icons/bi';
+import { Project } from '../../store/reducers/users/userInterfaces';
+import ProjectCard from '../projectCard/ProjectCard';
+import texts from '../../utils/texts';
 
 interface PortfolioCardProps {
   title: string;
@@ -19,20 +19,20 @@ const PortfolioCard = ({
   menuOpen = true,
 }: PortfolioCardProps) => {
   const [showMenu, setShowMenu] = useState(menuOpen);
-  const [height, setHeight] = useState("0px");
+  const [height, setHeight] = useState('0px');
 
   const contentArea = useRef<HTMLDivElement | null>(null);
 
   const toggleAccordion = () => {
     setShowMenu(!showMenu);
-    setHeight(showMenu ? "0px" : `${contentArea.current?.scrollHeight}px`);
+    setHeight(showMenu ? '0px' : `${contentArea.current?.scrollHeight}px`);
   };
 
   useEffect(() => {
-    setHeight(showMenu ? `${contentArea.current?.scrollHeight}px` : "0px");
+    setHeight(showMenu ? `${contentArea.current?.scrollHeight}px` : '0px');
 
     const observer = new MutationObserver(() => {
-      setHeight(showMenu ? `${contentArea.current?.scrollHeight}px` : "0px");
+      setHeight(showMenu ? `${contentArea.current?.scrollHeight}px` : '0px');
     });
 
     if (contentArea.current) {
@@ -56,7 +56,7 @@ const PortfolioCard = ({
       <section
         ref={contentArea}
         style={{ maxHeight: `${height}` }}
-        className={`overflow-hidden transition-all duration-500 ease-in-out`}
+        className={'overflow-hidden transition-all duration-500 ease-in-out'}
       >
         {projects ? (
           projects.length > 0 ? (

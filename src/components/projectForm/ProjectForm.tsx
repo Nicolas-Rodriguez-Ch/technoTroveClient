@@ -1,13 +1,13 @@
 import {
   ProjectField,
   ProjectForm as ProjectFormType,
-  ProjectImageField,
-} from "../../types/formInterfaces";
-import { useMatch } from "react-router-dom";
-import { useForm, useFieldArray } from "react-hook-form";
-import InputField from "../inputField/InputField";
-import texts from "../../utils/texts";
-import routePaths from "../../constants/routePaths";
+  // ProjectImageField,
+} from '../../types/formInterfaces';
+import { useMatch } from 'react-router-dom';
+import { useForm, useFieldArray } from 'react-hook-form';
+import InputField from '../inputField/InputField';
+import texts from '../../utils/texts';
+import routePaths from '../../constants/routePaths';
 
 interface ProjectFormProps {
   defaultValues: ProjectFormType;
@@ -36,7 +36,7 @@ const ProjectForm = ({
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "links",
+    name: 'links',
   });
 
   const {
@@ -45,11 +45,11 @@ const ProjectForm = ({
     remove: removeImage,
   } = useFieldArray({
     control,
-    name: "images",
+    name: 'images',
   });
 
   const BUTTON_CLASSNAME =
-    "bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-2 font-bold m-4 text-sm sm:text-base rounded-md";
+    'bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-2 font-bold m-4 text-sm sm:text-base rounded-md';
   return (
     <>
       <form
@@ -135,7 +135,7 @@ const ProjectForm = ({
                     <button
                       type="button"
                       className={`${BUTTON_CLASSNAME}`}
-                      onClick={() => appendImage({ imageField: "" })}
+                      onClick={() => appendImage({ imageField: '' })}
                     >
                       {texts.newProjectImageAdd}
                     </button>
@@ -177,7 +177,7 @@ const ProjectForm = ({
                     <button
                       type="button"
                       className={`${BUTTON_CLASSNAME}`}
-                      onClick={() => append({ field: "" })}
+                      onClick={() => append({ field: '' })}
                     >
                       {texts.newProjectAddLink}
                     </button>
