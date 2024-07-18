@@ -9,7 +9,6 @@ const InputField = ({
   rules,
   errors,
   className = "p-2 m-2 text-custom-black rounded-md",
-  className = "p-2 m-2 text-custom-black rounded-md",
   accept,
   placeHolder,
   disabled = false,

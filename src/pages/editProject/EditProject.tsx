@@ -1,3 +1,4 @@
+// EditProject component
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProjectById, updateProject } from "../../services/projectAPI";
