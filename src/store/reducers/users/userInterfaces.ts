@@ -28,7 +28,7 @@ export interface Project {
 
 export interface UserState {
   data: null | User | LoginResponse;
-  status: "idle" | "loading" | "succeeded" | "failed";
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
   deleted: boolean;
 }

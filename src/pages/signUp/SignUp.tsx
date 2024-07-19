@@ -1,12 +1,12 @@
-import { SubmitHandler } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
-import SignUpForm from "../../components/signUpForm/SignUpForm";
-import { FormValues } from "../../types/formInterfaces";
-import { createUser } from "../../services/userAPI";
-import texts from "../../utils/texts";
-import { Link } from "react-router-dom";
-import routePaths from "../../constants/routePaths";
-import { useNavigate } from "react-router-dom";
+import { createUser } from '../../services/userAPI';
+import { FormValues } from '../../types/formInterfaces';
+import { Link } from 'react-router-dom';
+import { SubmitHandler } from 'react-hook-form';
+import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import routePaths from '../../constants/routePaths';
+import SignUpForm from '../../components/signUpForm/SignUpForm';
+import texts from '../../utils/texts';
 
 const SignUp = () => {
   const navigate = useNavigate();

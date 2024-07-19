@@ -1,9 +1,11 @@
-import { deleteProject } from "../../services/projectAPI";
-import texts from "../../utils/texts";
-import { ToastContainer, toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
-import { fetchUser } from "../../store/reducers/users/userSlice";
+import { AppDispatch } from '../../store/store';
+import { deleteProject } from '../../services/projectAPI';
+import { fetchUser } from '../../store/reducers/users/userSlice';
+import { Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import routePaths from '../../constants/routePaths';
+import texts from '../../utils/texts';
 
 interface ProjectCardProps {
   image: string;
@@ -51,9 +53,12 @@ const ProjectCard = ({ image, title, description, id }: ProjectCardProps) => {
           >
             {texts.delete}
           </button>
-          <button className="bg-custom-blue w-auto p-2 font-bold rounded-2xl text-custom-mint border-2 border-custom-black hover:text-custom-black hover:bg-custom-mint">
+          <Link
+            to={`${routePaths.editProject}/${id}`}
+            className="bg-custom-blue w-auto p-2 font-bold rounded-2xl text-custom-mint border-2 border-custom-black hover:text-custom-black hover:bg-custom-mint"
+          >
             {texts.edit}
-          </button>
+          </Link>
         </div>
       </section>
     </>
