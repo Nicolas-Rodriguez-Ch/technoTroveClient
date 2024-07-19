@@ -1,4 +1,4 @@
-import { ProjectField } from "../types/formInterfaces";
+import { ProjectField } from '../types/formInterfaces';
 
 export const transformLinks = (
   links: ProjectField[]

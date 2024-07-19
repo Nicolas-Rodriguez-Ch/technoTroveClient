@@ -1,14 +1,14 @@
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { ProjectForm } from "../../types/formInterfaces";
-import InputField from "../inputField/InputField";
-import texts from "../../utils/texts";
-import { createProject } from "../../services/projectAPI";
-import { AppDispatch } from "../../store/store";
-import { fetchUser } from "../../store/reducers/users/userSlice";
+import { AppDispatch } from '../../store/store';
+import { createProject } from '../../services/projectAPI';
+import { fetchUser } from '../../store/reducers/users/userSlice';
+import { ProjectForm } from '../../types/formInterfaces';
+import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+import { toast, ToastContainer } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import InputField from '../inputField/InputField';
+import texts from '../../utils/texts';
 const NewProjectForm = () => {
-  const distpatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -17,15 +17,15 @@ const NewProjectForm = () => {
     reset,
   } = useForm<ProjectForm>({
     defaultValues: {
-      title: "",
-      description: "",
-      links: [{ field: "" }],
-      images: [{ imageField: "" }],
+      title: '',
+      description: '',
+      links: [{ field: '' }],
+      images: [{ imageField: '' }],
     },
   });
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "links",
+    name: 'links',
   });
   const {
     fields: imageFields,
@@ -33,7 +33,7 @@ const NewProjectForm = () => {
     remove: removeImage,
   } = useFieldArray({
     control,
-    name: "images",
+    name: 'images',
   });
 
   const onSubmit: SubmitHandler<ProjectForm> = async (data) => {
@@ -41,15 +41,15 @@ const NewProjectForm = () => {
       await createProject(data);
       reset();
       toast.success(texts.newProjectSuccess);
-      setTimeout(()=> {
-        distpatch(fetchUser());
-      }, 5750)
+      setTimeout(() => {
+        dispatch(fetchUser());
+      }, 5750);
     } catch (error) {
       toast.error(texts.newProjectError);
     }
   };
   const BUTTON_CLASSNAME =
-    "bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-2 font-bold m-4 text-sm sm:text-base rounded-md";
+    'bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-2 font-bold m-4 text-sm sm:text-base rounded-md';
 
   return (
     <>
@@ -121,7 +121,7 @@ const NewProjectForm = () => {
                   <button
                     type="button"
                     className={`${BUTTON_CLASSNAME}`}
-                    onClick={() => append({ field: "" })}
+                    onClick={() => append({ field: '' })}
                   >
                     {texts.newProjectAddLink}
                   </button>
@@ -162,7 +162,7 @@ const NewProjectForm = () => {
                   <button
                     type="button"
                     className={`${BUTTON_CLASSNAME}`}
-                    onClick={() => appendImage({ imageField: "" })}
+                    onClick={() => appendImage({ imageField: '' })}
                   >
                     {texts.newProjectImageAdd}
                   </button>

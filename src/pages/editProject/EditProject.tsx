@@ -1,15 +1,22 @@
-// EditProject component
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getProjectById, updateProject } from "../../services/projectAPI";
-import { ToastContainer, toast } from "react-toastify";
-import ProjectForm from "../../components/projectForm/ProjectForm";
-import { ProjectForm as ProjectFormType } from "../../types/formInterfaces";
-import texts from "../../utils/texts";
+import { AppDispatch } from '../../store/store';
+import { fetchUser } from '../../store/reducers/users/userSlice';
+import { getProjectById, updateProject } from '../../services/projectAPI';
+import { ProjectForm as ProjectFormType } from '../../types/formInterfaces';
+import { toast, ToastContainer } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import ProjectForm from '../../components/projectForm/ProjectForm';
+import routePaths from '../../constants/routePaths';
+import texts from '../../utils/texts';
 
 const EditProject = () => {
   const { id } = useParams<string>();
+  const [isDisabled, setIsDisabled] = useState(false);
   const [project, setProject] = useState<ProjectFormType | null>(null);
+  const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -29,13 +36,19 @@ const EditProject = () => {
 
   const handleSubmit = async (data: ProjectFormType) => {
     try {
+      setIsDisabled(true);
       if (id) {
         await updateProject(id, data);
-        toast.success("Project updates successfully");
+        toast.success(texts.editProjectSucces);
+        dispatch(fetchUser());
+        setTimeout(() => {
+          navigate(`${routePaths.portfolio}`);
+        }, 5750);
       }
     } catch (error) {
       if (error instanceof Error) {
         toast.error(`Error: ${error.message}`);
+        setIsDisabled(false);
       }
     }
   };
@@ -51,7 +64,7 @@ const EditProject = () => {
         <ProjectForm
           defaultValues={project}
           onSubmit={handleSubmit}
-          disabled={false}
+          disabled={isDisabled}
         />
       )}
     </section>
