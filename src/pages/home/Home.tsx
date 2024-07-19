@@ -1,5 +1,5 @@
-import "./Home.css";
-import texts from "../../utils/texts";
+import './Home.css';
+import texts from '../../utils/texts';
 
 const Home = () => {
   return (

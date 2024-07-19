@@ -1,16 +1,16 @@
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { FormValues } from "../../types/formInterfaces";
-import InputField from "../inputField/InputField";
-import texts from "../../utils/texts";
-import { FiUser } from "react-icons/fi";
-import { User } from "../../store/reducers/users/userInterfaces";
+import { FiUser } from 'react-icons/fi';
+import { FormValues } from '../../types/formInterfaces';
+import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+import { User } from '../../store/reducers/users/userInterfaces';
+import InputField from '../inputField/InputField';
+import texts from '../../utils/texts';
 
 interface UpdatePageProps {
   submitUserUpdate: SubmitHandler<FormValues>;
-  user : User
+  user: User;
 }
 
-const UpdateUserForm = ({submitUserUpdate, user}: UpdatePageProps) => {
+const UpdateUserForm = ({ submitUserUpdate, user }: UpdatePageProps) => {
   const {
     register,
     handleSubmit,
@@ -21,34 +21,33 @@ const UpdateUserForm = ({submitUserUpdate, user}: UpdatePageProps) => {
       fullName: user.data.fullName,
       email: user.data.email,
       description: user.data.description,
-      contactInfo: user.data.contactInfo.map((info:string) => ({ field: info })), // Populate with the previous user's contactInfo array
+      contactInfo: user.data.contactInfo.map((info: string) => ({ field: info })),
     },
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "contactInfo",
+    name: 'contactInfo',
   });
+
   const BUTTON_CLASSNAME =
-    "bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-1 font-bold m-4 text-sm sm:text-base";
+    'bg-custom-blue text-custom-mint border hover:bg-custom-mint hover:text-custom-blue p-1 font-bold m-4 text-sm sm:text-base';
 
-
-    return (
-      <form
+  return (
+    <form
       onSubmit={handleSubmit(submitUserUpdate)}
       className="flex flex-col text-right gap-4 m-4 md:grid md:grid-cols-3 md:gap-6"
     >
-
-<div className="profile-picture">
-          {user && user.data.img ? (
-            <img
-              src={user.data.img}
-              alt={user.data.fullName}
-              className="w-32 h-32 rounded-full object-cover"
-            />
-          ) : (
-            <FiUser className="w-32 h-32 rounded-full object-cover" />
-          )}
+      <div className="profile-picture">
+        {user && user.data.img ? (
+          <img
+            src={user.data.img}
+            alt={user.data.fullName}
+            className="w-32 h-32 rounded-full object-cover"
+          />
+        ) : (
+          <FiUser className="w-32 h-32 rounded-full object-cover" />
+        )}
         <InputField
           register={register}
           id="image"
@@ -56,19 +55,17 @@ const UpdateUserForm = ({submitUserUpdate, user}: UpdatePageProps) => {
           type="file"
           placeHolder="Update user picture"
           accept=".png, .jpg, .jpeg"
-          rules = { {required: false}}
+          rules={{ required: false }}
           defaultValue={user.data.image}
           errors={errors.image}
         />
-        </div>
-
-
+      </div>
 
       <div className="w-full md:col-span-1">
         <InputField
           register={register}
           id="fullName"
-          label={ texts.fullName }
+          label={texts.fullName}
           placeHolder={user.data.fullName}
           rules={{
             required: {
@@ -84,7 +81,7 @@ const UpdateUserForm = ({submitUserUpdate, user}: UpdatePageProps) => {
           register={register}
           id="email"
           label={texts.email}
-          placeHolder={user.data.email || texts.email }
+          placeHolder={user.data.email || texts.email}
           type="email"
           rules={{
             required: {
@@ -144,7 +141,7 @@ const UpdateUserForm = ({submitUserUpdate, user}: UpdatePageProps) => {
           <button
             type="button"
             className={`${BUTTON_CLASSNAME}`}
-            onClick={() => append({ field: "" })}
+            onClick={() => append({ field: '' })}
           >
             {texts.signUpAddButton}
           </button>
@@ -161,13 +158,12 @@ const UpdateUserForm = ({submitUserUpdate, user}: UpdatePageProps) => {
         )}
       </div>
       <div className="w-full md:col-span-3 flex flex-col items-center">
-
-        <button type="submit" className={`w-full ${BUTTON_CLASSNAME}`} onSubmit={submitUserUpdate}>
+        <button type="submit" className={`w-full ${BUTTON_CLASSNAME}`}>
           {texts.submit}
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default UpdateUserForm
+export default UpdateUserForm;
