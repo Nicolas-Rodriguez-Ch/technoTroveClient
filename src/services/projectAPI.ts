@@ -72,7 +72,7 @@ export const updateProject = async (id: string, body: ProjectForm) => {
       if (key === 'links' && Array.isArray(value)) {
         value.forEach((link) => {
           if (link.field.trim() !== '') {
-            formData.append(key, link.field);
+            formData.append('links', link.field);
           }
         });
       } else if (key === 'images' && Array.isArray(value)) {
@@ -80,7 +80,7 @@ export const updateProject = async (id: string, body: ProjectForm) => {
         if (nonEmptyImages.length > 0) {
           nonEmptyImages.forEach((imageObj: { imageField: FileList }) => {
             Array.from(imageObj.imageField).forEach((file) => {
-              formData.append('file', file);
+              formData.append('images', file);
             });
           });
         }
@@ -89,6 +89,7 @@ export const updateProject = async (id: string, body: ProjectForm) => {
       }
     }
   });
+
   const response = await fetch(`${API_URL}projects/${id}`, {
     method: 'PUT',
     body: formData,

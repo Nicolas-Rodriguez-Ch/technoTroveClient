@@ -68,6 +68,7 @@ const texts = {
   newProjectImagePlaceHolder: 'Upload an image associated with the  project.',
   newProjectImageError: 'You must provide an image.',
   newProjectImageAdd: 'Add another image',
+  editProjectSucces: 'Project Updated succesfully! You will be redirected to your protfolio page.'
 };
 
 export default texts;

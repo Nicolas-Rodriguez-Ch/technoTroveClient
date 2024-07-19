@@ -39,7 +39,7 @@ const EditProject = () => {
       setIsDisabled(true);
       if (id) {
         await updateProject(id, data);
-        toast.success('Project updates successfully');
+        toast.success(texts.editProjectSucces);
         dispatch(fetchUser());
         setTimeout(() => {
           navigate(`${routePaths.portfolio}`);
