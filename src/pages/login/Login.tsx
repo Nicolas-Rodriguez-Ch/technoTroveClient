@@ -48,7 +48,7 @@ const Login = () => {
         );
         setTimeout(() => {
           navigate(routePaths.home);
-          dispatch(fetchUser())
+          dispatch(fetchUser());
       }, 5750);
     }
   };

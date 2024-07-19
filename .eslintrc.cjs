@@ -19,5 +19,6 @@ module.exports = {
         memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single']
       },
     ],
+    'semi': ['error', 'always'],
   },
 };

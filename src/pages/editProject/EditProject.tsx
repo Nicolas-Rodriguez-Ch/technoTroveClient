@@ -13,8 +13,8 @@ import texts from '../../utils/texts';
 
 const EditProject = () => {
   const { id } = useParams<string>();
+  const [isDisabled, setIsDisabled] = useState(false);
   const [project, setProject] = useState<ProjectFormType | null>(null);
-  console.log('🚀 ~ EditProject ~ project:', project)
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
@@ -23,7 +23,6 @@ const EditProject = () => {
       if (id) {
         try {
           const { data } = await getProjectById(id);
-          console.log('🚀 ~ fetchProject ~ data:', data)
           setProject(data);
         } catch (error) {
           if (error instanceof Error) {
@@ -37,6 +36,7 @@ const EditProject = () => {
 
   const handleSubmit = async (data: ProjectFormType) => {
     try {
+      setIsDisabled(true);
       if (id) {
         await updateProject(id, data);
         toast.success('Project updates successfully');
@@ -48,6 +48,7 @@ const EditProject = () => {
     } catch (error) {
       if (error instanceof Error) {
         toast.error(`Error: ${error.message}`);
+        setIsDisabled(false);
       }
     }
   };
@@ -63,7 +64,7 @@ const EditProject = () => {
         <ProjectForm
           defaultValues={project}
           onSubmit={handleSubmit}
-          disabled={false}
+          disabled={isDisabled}
         />
       )}
     </section>
